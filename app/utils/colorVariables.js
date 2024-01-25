@@ -1,0 +1,5 @@
+export const DARK_JUNGLE_GREEN = '#15252d' 
+export const ANTIQUE_WHITE = '#ffeadb'
+export const LIGHT_GREY = '#cfd7d6'
+export const AEROSPACE_ORANGE = '#FC5200'
+export const CARRIBEAN_GREEN = '#03D89F' 

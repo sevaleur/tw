@@ -1,0 +1,21 @@
+$color-dark-jungle-green: #15252d; 
+$color-antique-white: #ffeadb; 
+$color-light-grey: #cfd7d6;
+$color-aerospace-orange: #FC5200;
+$color-carribean-green: #03D89F; 
+
+$ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+$font-melodrama-regular: 'Melodrama-Regular';
+$font-emberly: 'Emberly';
+
+$z-indexes: (
+  'preloader',
+  'navigation',
+  'modal',
+  'link',
+  'content',
+  'canvas',
+  'title'
+);
