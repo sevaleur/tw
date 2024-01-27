@@ -5,6 +5,8 @@ import map from 'lodash/map'
 
 import AsyncLoad from 'classes/AsyncLoad'
 
+import ColorManager from 'classes/Colors'
+
 export default class Page 
 {
   constructor({ element, elements, background, color })
@@ -13,6 +15,10 @@ export default class Page
     this.selectorChildren = {
       ...elements 
     }
+    this.background = background 
+    this.color = color
+
+    this.colorManager = new ColorManager()
   }
 
   create()
@@ -33,6 +39,15 @@ export default class Page
         distance: 0,
         end: 0
       }
+    }
+
+    this.coord = {
+      x: window.innerWidth / 2, 
+      y: window.innerHeight / 2,
+      vX: 0, 
+      vY: 0,
+      pX: 0, 
+      pY: 0,
     }
 
     each(this.selectorChildren, (entry, key) =>

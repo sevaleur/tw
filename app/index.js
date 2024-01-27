@@ -1,4 +1,9 @@
-//import Canvas from 'components/Canvas'
+import normalizeWheel from 'normalize-wheel'
+import each from 'lodash/each'
+
+import Responsive from './utils/Responsive'
+
+import Canvas from 'components/Canvas'
 import Preloader from 'components/Preloader'
 import Navigation from 'components/Navigation'
 
@@ -11,9 +16,25 @@ export default class App
 {
   constructor()
   {
-    this.createContent()
+    this.createResponsive()
 
+    this.createContent()
+    this.createCanvas()
+    this.createPreloader()
+    this.createNavigation()
     this.createPages()
+
+    this.addEventListeners()
+    this.addLinkListeners()
+
+    this.onResize()
+
+    this.update()
+  }
+
+  createResponsive()
+  {
+    this.responsive = new Responsive()
   }
 
   createContent()
@@ -22,7 +43,7 @@ export default class App
     this.template = this.content.getAttribute('data-template')
   }
 
-  /* createCanvas()
+  createCanvas()
   {
     this._canvas = document.createElement('canvas')
     document.body.appendChild(this._canvas)
@@ -30,8 +51,9 @@ export default class App
     this.canvas = new Canvas({
       template: this.template,
       canvas: this._canvas,
+      screen: this.responsive.screen
     })
-  } */
+  }
 
   createPreloader()
   {
@@ -42,8 +64,7 @@ export default class App
   createNavigation()
   {
     this.navigation = new Navigation({
-      template: this.template, 
-      device: this.device
+      template: this.template
     })
   }
 
@@ -69,7 +90,6 @@ export default class App
     this.preloader.destroy()
 
     this.navigation.show()
-    this.footer.show()
     this.page.show()
   }
 
@@ -117,13 +137,18 @@ export default class App
 
   onResize()
   {
+    this.responsive.onResize()
+    console.log(this.responsive)
     if(this.page && this.page.onResize)
       this.page.onResize()
 
     window.requestAnimationFrame(() =>
     {
       if(this.canvas && this.canvas.onResize)
-        this.canvas.onResize()
+        this.canvas.onResize({
+          screen: this.responsive.screen
+        }
+      )
     })
   }
 

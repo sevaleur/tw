@@ -11,8 +11,8 @@ export default class About extends Page
       elements: {
         title: '.about__title__text'
       }, 
-      background: ANTIQUE_WHITE, 
-      color: DARK_JUNGLE_GREEN
+      background: DARK_JUNGLE_GREEN,
+      color: ANTIQUE_WHITE
     })
   }
 

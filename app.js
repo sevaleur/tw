@@ -81,8 +81,48 @@ app.use((req, res, next) => {
   next()
 })
 
+const handleAssets = async() => 
+{
+  const all_galleries = await url(
+    encodeURIComponent(
+      `*[_type == "gallery"]{
+        "images": images
+      }`
+    )
+  )
+  all_galleries.result.forEach(
+    gallery => 
+    {
+      gallery.images.forEach(
+        image => 
+        {
+          let src = build.image(image.asset._ref).url()
+      
+          if(!this.assets.includes(src))
+            this.assets.push(src)
+        }
+      )
+    }
+  )
+
+  const navigation = await url(
+    encodeURIComponent(
+      `*[_type == "navigation"]{
+        "image": logo.asset
+      }`
+    )
+  )
+
+  let nav = build.image(navigation.result[0].image._ref).url()
+
+  if(!this.assets.includes(nav))
+    this.assets.push(nav)
+}
+
 const handleReq = async(req) =>
 {
+  await handleAssets()
+
   const meta = await url(
     encodeURIComponent(
       `*[_type == "metadata"]`
@@ -102,6 +142,7 @@ const handleReq = async(req) =>
     meta: meta.result[0],
     navigation: navigation.result[0],
     device: req.device.type,
+    assets: this.assets
   }
 }
 

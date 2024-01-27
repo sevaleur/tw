@@ -11,8 +11,8 @@ export default class Cases extends Page
       elements: {
         title: '.cases__title__text'
       }, 
-      background: ANTIQUE_WHITE, 
-      color: DARK_JUNGLE_GREEN
+      background: DARK_JUNGLE_GREEN,
+      color: ANTIQUE_WHITE
     })
   }
 

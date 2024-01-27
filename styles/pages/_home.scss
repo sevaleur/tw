@@ -57,6 +57,8 @@
 
   &__profession 
   {
+    @extend %desc-16; 
+
     position: absolute; 
     top: 4rem; 
     right: 4rem; 

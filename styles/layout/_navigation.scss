@@ -60,7 +60,7 @@
     &__item
     {
       pointer-events: auto;
-      margin: 0 2rem;
+      height: 2.5rem; 
       overflow: hidden;
 
       &__link
@@ -72,9 +72,58 @@
 
           font-weight: 300;
           display: block;
-          padding: .5rem 0;
+          padding: 0;
+
+          display: flex; 
+
+          text-transform: lowercase;
+          margin: 0 2rem;
+
+          &:nth-child(even)
+          {
+            color: $color-aerospace-orange;
+          }
         }
+      }
+
+      &__split 
+      {
+        @extend %desc-20; 
+
+        position: absolute; 
+        top: 50%; 
+
+        transform: translateY(-50%);
       }
     }
   }
+
+  &__topRight 
+  {
+    position: absolute; 
+    top: 4rem; 
+    right: 4rem;
+
+    width: 20rem; 
+
+    display: flex;
+    justify-content: space-evenly;
+
+    &__text
+    {
+      @extend %desc-16; 
+    }
+
+    &__split
+    {
+      height: 0.2rem; 
+      width: 3rem; 
+
+      background: $color-aerospace-orange;
+
+      align-self: flex-end;
+      margin-bottom: 0.5rem;
+    }
+  }
+    
 }

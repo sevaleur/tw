@@ -8,7 +8,16 @@ nav.navigation
     .navigation__menu 
       .navigation__menu__icon
       ul.navigation__list
-        each item in navigation.nav_items
+        each item, index in navigation.nav_items
           li.navigation__list__item
             a.navigation__list__item__link.hidden(href=Link(item) data-path=item._type)
               p.navigation__list__item__link__text=item.title
+              p.navigation__list__item__link__text=item.title
+          if index !== navigation.nav_items.length -1
+            li.navigation__list__item 
+              p.navigation__list__item__split / 
+
+    .navigation__topRight 
+      p.navigation__topRight__text=navigation.topRightOne
+      .navigation__topRight__split
+      p.navigation__topRight__text=navigation.topRightTwo
