@@ -1,6 +1,7 @@
 import Component from "classes/Component"
 
 import Double from "animations/Double"
+import Title from "animations/Title"
 
 export default class Navigation extends Component
 {
@@ -11,8 +12,9 @@ export default class Navigation extends Component
       elements:
       {
         menu: '.navigation__menu', 
-          item: '.navigation__list__item',
-        items: '.navigation__list__item__link__text'
+        item: '.navigation__list__item',
+        items: '.navigation__list__item__link__text',
+        title: '.content__title__text'
       }, 
     })
 
@@ -25,7 +27,8 @@ export default class Navigation extends Component
 
     this.navigation = { 
       animations: {
-        menu: []
+        menu: [], 
+        titles: [],
       }
     }
 
@@ -42,6 +45,12 @@ export default class Navigation extends Component
           new Double(item)
         )
       }
+    )
+
+    this.navigation.animations.titles.push(
+      new Title(
+        this.elements.title
+      )
     )
   }
 

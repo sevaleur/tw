@@ -1,22 +1,12 @@
 @font-face {
-  font-family: $font-melodrama-regular;
-  src: url('../fonts/Melodrama-Regular.woff2') format('woff2'),
-       url('../fonts/Melodrama-Regular.woff') format('woff'),
-       url('../fonts/Melodrama-Regular.otf') format('opentype');
-       font-weight: 400;
-       font-display: swap;
-       font-style: normal;
+  font-family: $font-butler;
+  src: url('../fonts/Butler.woff2') format('woff2'),
+      url('../fonts/Butler.woff') format('woff'),
+      url('../fonts/Butler_Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@font-face {
-  font-family: $font-emberly;
-  src: url('../fonts/Emberly-Regular.woff2') format('woff2'),
-       url('../fonts/Emberly-Regular.woff') format('woff'),
-       url('../fonts/Emberly-Regular.otf') format('opentype');
-       font-style: normal;
-       font-weight: normal;
-       text-rendering: optimizeLegibility;
-}
 
 @font-face {
   font-family: $font-satoshi;

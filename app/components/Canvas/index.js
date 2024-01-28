@@ -20,12 +20,10 @@ export default class Canvas
     this.canvas = canvas
     this.screen = screen
 
-    console.log(this.screen)
-
     this.createScene()
     this.createCamera()
+    this.createWebGLDimensions()
     this.createRenderer()
-
     this.createController()
   }
 
@@ -44,6 +42,18 @@ export default class Canvas
       screen: this.screen, 
       scene: this.scene
     })
+  }
+
+  createWebGLDimensions()
+  {
+    const fov = this.camera.instance.fov * (Math.PI / 180)
+    const height = 2 * Math.tan(fov / 2) * this.camera.instance.position.z
+    const width = height * this.camera.instance.aspect
+
+    this.viewport = {
+      width, 
+      height
+    }
   }
 
   createRenderer()
@@ -90,18 +100,8 @@ export default class Canvas
 
   onResize({ screen })
   {
-    console.log(screen)
     this.camera.onResize(screen)
     this.renderer.onResize(screen)
-
-    const fov = this.camera.instance.fov * (Math.PI / 180)
-    const height = 2 * Math.tan(fov / 2) * this.camera.instance.position.z
-    const width = height * this.camera.instance.aspect
-
-    this.viewport = {
-      width,
-      height
-    }
 
     if(this.controller)
     {

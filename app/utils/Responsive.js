@@ -9,7 +9,7 @@ export default class Responsive extends EventEmitter
     this.screen = {
       width: window.innerWidth, 
       height: window.innerHeight, 
-      pixelRatio: Math.min(window.devicePixelRatio, 2)
+      pixelRatio: Math.min(window.devicePixelRatio, 2), 
     }
   }
 

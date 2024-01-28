@@ -138,7 +138,7 @@ export default class App
   onResize()
   {
     this.responsive.onResize()
-    console.log(this.responsive)
+    
     if(this.page && this.page.onResize)
       this.page.onResize()
 

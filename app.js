@@ -163,12 +163,13 @@ app.get('/', async(req, res) =>
           _type, 
           title,
           "image": images[0], 
+          "hoverImage": images[1],
           "slug": slug.current
         }
       }`
     )
   )
-
+  home.result[0].showcase.forEach(el => console.log(el))
   res.render('pages/home',
   {
     ...partials,

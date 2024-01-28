@@ -14,7 +14,7 @@ export default class Double
 
     this.chars = this.element.querySelectorAll('.char')
     this.wrap(this.chars, 'span', 'wrap')
-    this.createMotion()
+    this.createAnimation()
   }
 
   wrap(elms, type, cl)
@@ -29,7 +29,7 @@ export default class Double
     })
   }
 
-  createMotion()
+  createAnimation()
   {
     this.onShow = gsap.to(
       this.chars,

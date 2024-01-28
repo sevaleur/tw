@@ -12,6 +12,7 @@ export default class Controller
     this.scene = scene 
     this.screen = screen 
     this.camera = camera 
+    this.viewport = viewport
 
     this.createGeometry()
   }

@@ -9,7 +9,9 @@ block content
       .home__showcase__wrapper 
         each element in home.showcase 
           .home__showcase__element 
-             a.home__gallery__image__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
+             a.home__showcase__element__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
               .home__showcase__element__media 
                 figure.home__showcase__element__media__figure 
                   img.home__showcase__element__media__figure__image(data-src=Build.image(element.image.asset._ref).url() alt=element.image.alt)
+                figure.home__showcase__element__media__figure
+                  img.hoverImage(data-src=Build.image(element.hoverImage.asset._ref).url() alt=element.hoverImage.alt)
