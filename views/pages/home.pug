@@ -5,13 +5,34 @@ block variables
 
 block content
   .home
-    .home__showcase
-      .home__showcase__wrapper 
-        each element in home.showcase 
-          .home__showcase__element 
-             a.home__showcase__element__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
-              .home__showcase__element__media 
-                figure.home__showcase__element__media__figure 
-                  img.home__showcase__element__media__figure__image(data-src=Build.image(element.image.asset._ref).url() alt=element.image.alt)
-                figure.home__showcase__element__media__figure
-                  img.hoverImage(data-src=Build.image(element.hoverImage.asset._ref).url() alt=element.hoverImage.alt)
+    .home__wrapper
+      header.home__header
+        .home__header__topTitle 
+          h1.home__header__topTitle__text!=home.header.title.replace(/\n/g, '<br>')
+        .home__header__location 
+          p.home__header__location__text!=home.header.location.replace(/\n/g, '<br>')
+        .home__header__portrait 
+          figure.home__header__portrait__figure 
+            img.home__header__portrait__figure__image(data-src=Build.image(home.header.selfPortrait.asset._ref).url() alt=home.header.selfPortrait.alt)
+        .home__header__description 
+          p.home__header__description__text!=home.header.description.replace(/\n/g, '<br>')
+        .home__header__btmTitle 
+            h2.home__header__btmTitle__text!=home.header.title.replace(/\n/g, '<br>')
+
+      section.home__showcase 
+        .home__showcase__title
+          h2.home__showcase__title__text=home.showcaseTitle
+        .home__showcase__gallery 
+          each obj, index in home.showcase 
+            .home__showcase__gallery__image(data-index=index) 
+              a.home__showcase__gallery__image__link(href=Link=(`${obj._type}/${obj.slug}`) aria-label=obj.title)
+              .home__showcase__gallery__image__info__title 
+                h3.home__showcase__gallery__image__info__title__text=obj.title
+              figure.home__showcase__gallery__image__figure
+                img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url())
+          .home__showcase__gallery__link 
+            a.home__showcase__gallery__link__work(href=Link=('/work'))
+              p.home__showcase__gallery__link__work__text see all
+
+      section.home__about 
+

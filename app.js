@@ -59,8 +59,8 @@ const linkResolver = doc =>
 {
   switch(doc._type)
   {
-    case 'cases': 
-      return '/cases'
+    case 'work': 
+      return '/work'
       break
     case 'gallery': 
       return `/gallery/${doc.slug}`
@@ -83,6 +83,40 @@ app.use((req, res, next) => {
 
 const handleAssets = async() => 
 {
+  const home_images = await url(
+    encodeURIComponent(
+      `*[_type == "home"]{
+        "header": header.selfPortrait, 
+        "aboutLeft": aboutSection.leftImages, 
+        "aboutRight": aboutSection.rightImages 
+      }`
+    )
+  )
+  let portraitSrc = build.image(home_images.result[0].header.asset._ref).url()
+
+  if(!this.assets.includes(portraitSrc))
+      this.assets.push(portraitSrc)
+  
+  let leftLarge = build.image(home_images.result[0].aboutLeft.largeImage.asset._ref).url()
+
+  if(!this.assets.includes(leftLarge))
+      this.assets.push(leftLarge)
+
+  let leftSmall = build.image(home_images.result[0].aboutLeft.smallImage.asset._ref).url()
+  
+  if(!this.assets.includes(leftSmall))
+      this.assets.push(leftSmall)
+
+  let rightLarge = build.image(home_images.result[0].aboutRight.largeImage.asset._ref).url()
+
+  if(!this.assets.includes(rightLarge))
+      this.assets.push(rightLarge)
+
+  let rightSmall = build.image(home_images.result[0].aboutRight.smallImage.asset._ref).url()
+
+  if(!this.assets.includes(rightSmall))
+      this.assets.push(rightSmall)
+
   const all_galleries = await url(
     encodeURIComponent(
       `*[_type == "gallery"]{
@@ -108,12 +142,12 @@ const handleAssets = async() =>
   const navigation = await url(
     encodeURIComponent(
       `*[_type == "navigation"]{
-        "image": logo.asset
+        "logo": navigationLinks.logo.asset
       }`
     )
   )
 
-  let nav = build.image(navigation.result[0].image._ref).url()
+  let nav = build.image(navigation.result[0].logo._ref).url()
 
   if(!this.assets.includes(nav))
     this.assets.push(nav)
@@ -137,7 +171,7 @@ const handleReq = async(req) =>
       }`
     )
   )
-
+  
   return {
     meta: meta.result[0],
     navigation: navigation.result[0],
@@ -162,14 +196,12 @@ app.get('/', async(req, res) =>
         showcase[]->{
           _type, 
           title,
-          "image": images[0], 
-          "hoverImage": images[1],
+          "image": images[0],
           "slug": slug.current
         }
       }`
     )
   )
-  home.result[0].showcase.forEach(el => console.log(el))
   res.render('pages/home',
   {
     ...partials,
@@ -177,12 +209,12 @@ app.get('/', async(req, res) =>
   })
 })
 
-app.get('/cases', async(req, res) =>
+app.get('/work', async(req, res) =>
 {
   const partials = await handleReq(req)
-  const cases = await url(
+  const work = await url(
     encodeURIComponent(
-      `*[_type == "cases"]{
+      `*[_type == "work"]{
         ..., 
         showcase[]-> {
           ..., 
@@ -195,10 +227,10 @@ app.get('/cases', async(req, res) =>
     )
   )
 
-  res.render('pages/cases',
+  res.render('pages/work',
   {
     ...partials,
-    cases: cases.result[0]
+    work: work.result[0]
   })
 })
 

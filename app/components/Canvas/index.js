@@ -112,8 +112,9 @@ export default class Canvas
     }
   }
 
-  update()
+  update(scroll)
   {
+    this.controller.update(scroll)
     this.renderer.update()
   }
 }

@@ -8,122 +8,104 @@
   &__wrapper 
   {
     overflow: hidden;
+
+    width: 100%; 
+    height:7rem;
+
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+
+    border-bottom: 1px solid $color-dark-jungle-green;
+    background: #ffeadb7d;
+    backdrop-filter: blur(10px);
   }
 
-  &__logo
+  &__availability 
   {
-    position: absolute; 
-    top: 0;
-    left: 0;
+    position:absolute; 
+    left: 6rem;
 
-    height: 10rem;
-    width: 12rem;
+    display: flex; 
 
-    &__link
+    &__color 
     {
-      height: 100%;
-      width: 100%;
+      height: 1rem; 
+      width: 1rem; 
+
+      background: $color-carribean-green;
+
+      border-radius: 100%;
+
+      align-self: center;
+      margin-right: 1rem;
     }
 
-    &__figure
+    &__text 
     {
-      height: 100%;
-      width: 100%;
-
-      position: relative;
-
-      visibility: hidden;
-
-      &__image
-      {
-        @extend %cover;
-
-        object-fit: cover;
-      }
     }
   }
 
   &__menu 
   {
     position: absolute; 
-    top: 4rem; 
     left: 50%; 
+
     transform: translateX(-50%);
   }
 
-  &__list
+  &__list 
   {
-    opacity: 1.0;
+    display: flex; 
+    align-items: center;
+
+    &__logo 
+    {
+      height: 5rem; 
+      width: 7rem; 
+      
+      margin: 0 2rem;
+
+      &__figure 
+      {
+        height: 100%; 
+        width: 100%; 
+
+        &__image 
+        {
+          height: 100%; 
+          width: 100%; 
+
+          opacity: 1;
+
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  &__profession 
+  {
+    position: absolute; 
+    right: 6rem; 
 
     display: flex; 
 
-    &__item
-    {
-      pointer-events: auto;
-      height: 2.5rem; 
-      overflow: hidden;
-
-      &__link
-      {
-
-        &__text 
-        {
-          @extend %desc-16;
-
-          font-weight: 300;
-          display: block;
-          padding: 0;
-
-          display: flex; 
-
-          text-transform: lowercase;
-          margin: 0 2rem;
-
-          &:nth-child(even)
-          {
-            color: $color-aerospace-orange;
-          }
-        }
-      }
-
-      &__split 
-      {
-        @extend %desc-20; 
-
-        position: absolute; 
-        top: 50%; 
-
-        transform: translateY(-50%);
-      }
-    }
-  }
-
-  &__topRight 
-  {
-    position: absolute; 
-    top: 4rem; 
-    right: 4rem;
-
-    width: 20rem; 
-
-    display: flex;
-    justify-content: space-evenly;
-
     &__text
     {
-      @extend %desc-16; 
+  
     }
 
-    &__split
+    &__split 
     {
+      align-self: flex-end;
+
       height: 0.2rem; 
-      width: 3rem; 
+      width: 2rem; 
 
       background: $color-aerospace-orange;
 
-      align-self: flex-end;
-      margin-bottom: 0.5rem;
+      padding: 0 1rem;
     }
   }
-    
 }

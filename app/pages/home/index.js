@@ -9,10 +9,10 @@ export default class Home extends Page
     super({
       element: '.home', 
       elements: {
-        title: '.home__title__text'
+        wrapper: '.home__wrapper',
       }, 
-      background: DARK_JUNGLE_GREEN,
-      color: ANTIQUE_WHITE
+      background: ANTIQUE_WHITE,
+      color: DARK_JUNGLE_GREEN
     })
   }
 

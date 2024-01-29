@@ -271,7 +271,7 @@ export default class Controller
   update(scroll)
   {
     if(this.home)
-      this.home.update()
+      this.home.update(scroll)
 
     if(this.work)
       this.work.update()

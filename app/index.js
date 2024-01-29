@@ -8,7 +8,7 @@ import Preloader from 'components/Preloader'
 import Navigation from 'components/Navigation'
 
 import Home from './pages/home'
-import Cases from './pages/cases'
+import Work from './pages/work'
 import Gallery from './pages/gallery'
 import About from './pages/about'
 
@@ -72,7 +72,7 @@ export default class App
   {
     this.pages = {
       home: new Home(), 
-      cases: new Cases(), 
+      work: new Work(), 
       gallery: new Gallery(), 
       about: new About()
     }
@@ -154,8 +154,6 @@ export default class App
 
   onTouchDown(e)
   {
-    if(this.page.modal && this.page.modal.enlarged) return 
-
     if(this.canvas && this.canvas.onTouchDown)
       this.canvas.onTouchDown(e)
 
@@ -165,8 +163,6 @@ export default class App
 
   onTouchMove(e)
   {
-    if(this.page.modal && this.page.modal.enlarged) return 
-
     if(this.canvas && this.canvas.onTouchMove)
       this.canvas.onTouchMove(e)
 
@@ -176,8 +172,6 @@ export default class App
 
   onTouchUp(e)
   {
-    if(this.page.modal && this.page.modal.enlarged) return 
-
     if(this.canvas && this.canvas.onTouchUp)
       this.canvas.onTouchUp(e)
 
@@ -196,8 +190,6 @@ export default class App
 
   onWheel(e)
   {
-    if(this.page.modal && this.page.modal.enlarged) return 
-
     const norm_wheel = normalizeWheel(e)
 
     if(this.canvas && this.canvas.onWheel)
@@ -266,16 +258,16 @@ export default class App
       }
     })
 
-    const outside_links = document.querySelectorAll('.outside__link')
+    //const outside_links = document.querySelectorAll('.outside__link')
 
-    each(outside_links, link =>
+    /* each(outside_links, link =>
     {
       link.onclick = event =>
       {
         const target = link.querySelector('a')
         window.open(target.href, '_blank')
       }
-    })
+    }) */
   }
 }
 

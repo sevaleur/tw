@@ -25,7 +25,6 @@ export default class Camera
 
   onResize(screen)
   {
-    console.log(screen)
     this.instance.aspect = screen.width / screen.height 
     this.instance.updateProjectionMatrix()
   }

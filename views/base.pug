@@ -36,9 +36,6 @@ html(lang='en')
 
     .content#content(data-template=template)
       block content
-      
-      .content__title
-        h1.content__title__text=meta.title
 
     script.
       window.ASSETS = !{JSON.stringify(assets).replace(/<\//g, "<\\/")}

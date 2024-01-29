@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import each from 'lodash/each'
 import map from 'lodash/map'
 
+import Prefix from 'prefix'
+
 import AsyncLoad from 'classes/AsyncLoad'
 
 import ColorManager from 'classes/Colors'
@@ -13,12 +15,13 @@ export default class Page
   {
     this.selector = element 
     this.selectorChildren = {
-      ...elements 
+      ...elements, 
     }
     this.background = background 
     this.color = color
 
     this.colorManager = new ColorManager()
+    this.transform_prefix = Prefix('transform')
   }
 
   create()
@@ -185,8 +188,6 @@ export default class Page
   {
     if(this.elements.wrapper)
       this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
-
-    each(this.animations, animation => animation.onResize())
   }
 
   update()
@@ -199,6 +200,8 @@ export default class Page
     
     if(this.elements.wrapper)
       this.elements.wrapper.style[this.transform_prefix] = `translateY(-${this.scroll.current}px)`
+
+    this.scroll.last = this.scroll.current
   }
 
   addEventListeners()

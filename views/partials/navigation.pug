@@ -1,23 +1,25 @@
 nav.navigation
   .navigation__wrapper
-    .navigation__logo
-      a.navigation__logo__link(href=Link('/'))
-        figure.navigation__logo__figure
-          img.navigation__logo__figure__image(src=Build.image(navigation.logo.asset._ref).url() alt=navigation.logo.alt)
-    
-    .navigation__menu 
-      .navigation__menu__icon
-      ul.navigation__list
-        each item, index in navigation.nav_items
-          li.navigation__list__item
-            a.navigation__list__item__link.hidden(href=Link(item) data-path=item._type)
-              p.navigation__list__item__link__text=item.title
-              p.navigation__list__item__link__text=item.title
-          if index !== navigation.nav_items.length -1
-            li.navigation__list__item 
-              p.navigation__list__item__split / 
+    .navigation__availability 
+      .navigation__availability__color(data-available=navigation.availability)
+      p.navigation__availability__text Available
 
-    .navigation__topRight 
-      p.navigation__topRight__text=navigation.topRightOne
-      .navigation__topRight__split
-      p.navigation__topRight__text=navigation.topRightTwo
+    .navigation__menu
+      ul.navigation__list
+        each item in navigation.navigationLinks.leftNavItems
+          li.navigation__list__left
+            a.navigation__list__left__link.hidden(href=Link(item._ref) data-path=item._ref)
+              p.navigation__list__left__link__text=item._ref
+        li.navigation__list__logo
+          a.navigation__list__logo__link(href=Link('/'))
+            figure.navigation__list__logo__figure
+              img.navigation__list__logo__figure__image(src=Build.image(navigation.navigationLinks.logo.asset._ref).url() alt=navigation.navigationLinks.logo.alt)
+        each item in navigation.navigationLinks.rightNavItems
+          li.navigation__list__right
+            a.navigation__list__right__link.hidden(href=Link(item._ref) data-path=item._ref)
+              p.navigation__list__right__link__text=item._ref
+
+    .navigation__profession 
+      p.navigation__profession__text=navigation.professionLeft 
+      .navigation__profession__split 
+      p.navigation__profession__rtext=navigation.professionRight

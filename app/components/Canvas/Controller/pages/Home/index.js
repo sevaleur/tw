@@ -1,6 +1,8 @@
 import { Group } from 'three' 
 
-import Element from './Element'
+import Portrait from './Portrait'
+import Background from './Background'
+import Circle from './Circle'
 
 export default class Home 
 {
@@ -11,12 +13,15 @@ export default class Home
     this.viewport = viewport 
     this.geo = geo 
 
-    console.log(this.viewport)
-
     this.group = new Group()
 
     this.createElements()
-    this.createShowcase()
+    this.createHeader()
+    this.createFeaturedWork()
+
+    this.onResize()
+
+    this.scene.add(this.group)
   }
 
   /* 
@@ -25,31 +30,55 @@ export default class Home
 
   createElements()
   {
-    this.home_element = document.querySelector('.home__showcase')
-    this.home_wrapper = document.querySelector('.home__showcase__wrapper')
+    this.home_element = document.querySelector('.home')
+    this.home_wrapper = document.querySelector('.home__wrapper')
 
-    this.images = document.querySelectorAll('.home__showcase__element__media__figure__image')
-    this.hoverImages = document.querySelectorAll('.hoverImage')
-    this.links = document.querySelectorAll('.home__showcase__image__link')
+    this.headerImage = document.querySelector('img.home__header__portrait__figure__image')
+    this.background = document.querySelector('.home__showcase')
+    this.workImages = document.querySelectorAll('img.home__showcase__gallery__image__figure__image')
   }
 
-  createShowcase()
+  createHeader()
   {
-    this.elements = Array.from(
-      this.images, 
+    this.portrait = new Portrait(
+      {
+        element: this.headerImage, 
+        template: this.template,
+        geometry: this.geo, 
+        scene: this.group, 
+        screen: this.screen, 
+        viewport: this.viewport
+      }
+    )
+  }
+  
+  createFeaturedWork()
+  {
+    this.background = new Background(
+      {
+        element: this.background, 
+        geometry: this.geo, 
+        scene: this.group, 
+        screen: this.screen, 
+        viewport: this.viewport
+      }
+    )
+
+    this.works = Array.from(
+      this.workImages, 
       (element, index) => 
       {
-        return new Element({
-          element, 
-          index,
-          hoverImage: this.hoverImages[index],
-          template: this.template, 
-          link: this.links[index], 
-          geometry: this.geo, 
-          scene: this.scene, 
-          screen: this.screen, 
-          viewport: this.viewport
-        })
+        return new Circle(
+          {
+            element, 
+            index, 
+            template: this.template, 
+            geometry: this.geo, 
+            scene: this.group, 
+            screen: this.screen, 
+            viewport: this.viewport
+          }
+        )
       }
     )
   }
@@ -60,14 +89,29 @@ export default class Home
 
   onResize()
   {
-    this.elements.forEach( 
-      element => 
-      { 
-        element.onResize(
-        {
-          screen: this.screen,
-          viewport: this.viewport,
-        })
+    this.portrait.onResize(
+      {
+        screen: this.screen,
+        viewport: this.viewport,
+      }
+    )
+
+    this.background.onResize(
+      {
+        screen: this.screen, 
+        viewport: this.viewport
+      }
+    )
+
+    this.works.forEach(
+      el => 
+      {
+        el.onResize(
+          {
+            screen: this.screen, 
+            viewport: this.viewport
+          }
+        )
       }
     )
   }
@@ -78,21 +122,31 @@ export default class Home
 
   show()
   {
-    this.elements.forEach(element => element.show())
+    this.portrait.show()
+    this.background.show()
+    this.works.forEach(el => { el.show() })
   }
 
   hide()
   {
-    this.elements.forEach(element => element.hide())
+    this.portrait.hide()
+    this.background.hide()
+    this.works.forEach(el => { el.hide() })
   }
 
   /* 
     UPDATE.
   */
 
-  update()
+  update(scroll)
   {
-    this.elements.forEach(element => element.update())
+    const current = (scroll.current / this.screen.height) * this.viewport.height
+
+    this.group.position.y = current * 0.9
+
+    this.portrait.update()
+    this.background.update()
+    this.works.forEach(el => { el.update() })
   }
 
   /*
