@@ -18,6 +18,8 @@ export default class Background
     this.createMesh()
     this.createBounds()
     this.createAnimations()
+
+    this.time = 0
   }
 
   createMaterial()
@@ -28,8 +30,10 @@ export default class Background
         fragmentShader: fragment, 
         uniforms: {
           u_alpha: { value: 0.0 },
+          u_scroll: { value: 0.0 },
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
           u_state: { value: 0.0 },
+          u_time: { value: 0.0 },
           u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
@@ -44,6 +48,7 @@ export default class Background
       this.material
     )
 
+    this.plane.position.z = -0.05
     this.scene.add(this.plane)
   }
 
@@ -154,6 +159,11 @@ export default class Background
   update(scroll)
   {
     if(!this.bounds) return
+
+    this.time += 0.005 
+    
+    this.plane.material.uniforms.u_time.value = this.time * 0.5
+    this.plane.material.uniforms.u_scroll.value = scroll.current / this.screen.height
 
     this.updateScale()
     this.updateX()

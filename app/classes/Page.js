@@ -16,6 +16,7 @@ export default class Page
     this.selector = element 
     this.selectorChildren = {
       ...elements, 
+      images: `[data-src]`
     }
     this.background = background 
     this.color = color
@@ -33,7 +34,8 @@ export default class Page
       current: 0,
       target: 0,
       last: 0,
-      limit: 0
+      limit: 0, 
+      speed: 0,
     }
 
     this.touch = {
@@ -194,6 +196,7 @@ export default class Page
   {
     this.scroll.target = gsap.utils.clamp(0, this.scroll.limit, this.scroll.target)
     this.scroll.current = gsap.utils.interpolate(this.scroll.current, this.scroll.target, 0.1)
+    this.scroll.speed = this.scroll.current - this.scroll.last
 
     if(this.scroll.current < 0.01)
       this.scroll.current = 0

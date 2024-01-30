@@ -258,16 +258,16 @@ export default class App
       }
     })
 
-    //const outside_links = document.querySelectorAll('.outside__link')
+    const outside_links = document.querySelectorAll('.outside__link')
 
-    /* each(outside_links, link =>
+    each(outside_links, link =>
     {
       link.onclick = event =>
       {
         const target = link.querySelector('a')
         window.open(target.href, '_blank')
       }
-    }) */
+    })
   }
 }
 

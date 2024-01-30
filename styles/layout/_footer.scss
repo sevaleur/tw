@@ -1,0 +1,131 @@
+.footer 
+{
+  z-index: z('footer');
+
+  height: 60dvh; 
+  width: 100%; 
+
+  background: $color-dark-jungle-green;
+
+  position: relative; 
+
+  &__proxy 
+  {
+    position: absolute; 
+    top: -5rem; 
+  
+    height: 10dvh; 
+    width: 100%; 
+  
+    background: $color-antique-white; 
+  
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  &__icons 
+  {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+
+    transform: translate(-50%, -50%);
+
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+
+    &__media
+    {
+      height: 5rem;
+      width: 5rem;
+
+      margin: 0 5rem;
+      vertical-align: top;
+      transition: all 0.2s linear;
+
+      &:hover
+      {
+        opacity: 0.5;
+      }
+
+      &:first-child
+      {
+        margin-left: 0;
+      }
+
+      &:last-child
+      {
+        margin-right: 0;
+      }
+
+      &__div
+      {
+        height: 100%;
+        width: 100%;
+
+        cursor: pointer;
+
+        transition: all 0.2s linear;
+
+        &:hover
+        {
+          opacity: 0.5;
+        }
+
+        &__link
+        {
+          visibility: hidden;
+        }
+
+        &__icon
+        {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          filter: invert(1);
+        }
+      }
+    }
+  }
+
+  &__title 
+  {
+    position: absolute; 
+    bottom: 5rem;
+    left: 50%; 
+
+    transform: translateX(-50%);
+
+    display:flex; 
+
+    width: 80%; 
+
+    &__text 
+    {
+      @extend %title-100; 
+
+      line-height: 5rem;
+      text-transform: uppercase;
+
+      &:nth-of-type(1)
+      {
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 0.3rem $color-antique-white;
+      }
+
+      &:nth-of-type(2)
+      {
+        -webkit-text-fill-color: $color-aerospace-orange;
+
+        margin: 0 2rem;
+      }
+
+      &:nth-of-type(3)
+      {
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 0.3rem $color-antique-white;
+      }
+    }
+  }
+}

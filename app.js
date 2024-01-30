@@ -171,10 +171,17 @@ const handleReq = async(req) =>
       }`
     )
   )
+
+  const footer = await url(
+    encodeURIComponent(
+      `*[_type == "footer"]`
+    )
+  )
   
   return {
     meta: meta.result[0],
     navigation: navigation.result[0],
+    footer: footer.result[0],
     device: req.device.type,
     assets: this.assets
   }
@@ -202,6 +209,7 @@ app.get('/', async(req, res) =>
       }`
     )
   )
+
   res.render('pages/home',
   {
     ...partials,

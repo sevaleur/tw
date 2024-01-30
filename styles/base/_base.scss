@@ -51,11 +51,11 @@ img
   opacity: 0;
   transition: opacity .5s ease;
   vertical-align: middle;
+}
 
-  &.loaded
-  {
-    opacity: 1;
-  }
+.loaded 
+{
+  opacity: 1;
 }
 
 .content

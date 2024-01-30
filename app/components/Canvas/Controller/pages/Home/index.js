@@ -1,8 +1,8 @@
 import { Group } from 'three' 
 
-import Portrait from './Portrait'
+import DelayedElement from './DelayedElement'
+import StaticElement from './StaticElement'
 import Background from './Background'
-import Circle from './Circle'
 
 export default class Home 
 {
@@ -13,15 +13,15 @@ export default class Home
     this.viewport = viewport 
     this.geo = geo 
 
-    this.group = new Group()
+    this.dGroup = new Group()
+    this.sGroup = new Group()
 
     this.createElements()
-    this.createHeader()
-    this.createFeaturedWork()
+    this.createImages()
 
     this.onResize()
 
-    this.scene.add(this.group)
+    this.scene.add(this.dGroup, this.sGroup)
   }
 
   /* 
@@ -33,55 +33,60 @@ export default class Home
     this.home_element = document.querySelector('.home')
     this.home_wrapper = document.querySelector('.home__wrapper')
 
-    this.headerImage = document.querySelector('img.home__header__portrait__figure__image')
+    this.delayedElements = document.querySelectorAll('[data-type="delay"]')
+    this.staticElements = document.querySelectorAll('[data-type="static"]')
     this.background = document.querySelector('.home__showcase')
-    this.workImages = document.querySelectorAll('img.home__showcase__gallery__image__figure__image')
   }
 
-  createHeader()
+  createImages()
   {
-    this.portrait = new Portrait(
-      {
-        element: this.headerImage, 
-        template: this.template,
-        geometry: this.geo, 
-        scene: this.group, 
-        screen: this.screen, 
-        viewport: this.viewport
-      }
-    )
-  }
-  
-  createFeaturedWork()
-  {
-    this.background = new Background(
-      {
-        element: this.background, 
-        geometry: this.geo, 
-        scene: this.group, 
-        screen: this.screen, 
-        viewport: this.viewport
-      }
-    )
-
-    this.works = Array.from(
-      this.workImages, 
+    this.dElems = Array.from(
+      this.delayedElements,
       (element, index) => 
       {
-        return new Circle(
+        return new DelayedElement(
           {
-            element, 
-            index, 
-            template: this.template, 
+            element,
+            index,
+            template: this.template,
             geometry: this.geo, 
-            scene: this.group, 
+            scene: this.dGroup, 
             screen: this.screen, 
             viewport: this.viewport
           }
         )
       }
     )
+
+    this.sElems = Array.from(
+      this.staticElements, 
+      (element, index) => 
+      {
+        return new StaticElement(
+          {
+            element, 
+            index, 
+            template: this.template, 
+            geometry: this.geo, 
+            scene: this.sGroup, 
+            screen: this.screen, 
+            viewport: this.viewport
+          }
+        )
+      }
+    )
+
+    this.background = new Background(
+      {
+        element: this.background, 
+        geometry: this.geo, 
+        scene: this.sGroup, 
+        screen: this.screen, 
+        viewport: this.viewport
+      }
+    )
   }
+
 
   /* 
     EVENTS.
@@ -89,21 +94,19 @@ export default class Home
 
   onResize()
   {
-    this.portrait.onResize(
+    this.dElems.forEach(
+      element => 
       {
-        screen: this.screen,
-        viewport: this.viewport,
+        element.onResize(
+          {
+            screen: this.screen,
+            viewport: this.viewport,
+          }
+        )
       }
     )
 
-    this.background.onResize(
-      {
-        screen: this.screen, 
-        viewport: this.viewport
-      }
-    )
-
-    this.works.forEach(
+    this.sElems.forEach(
       el => 
       {
         el.onResize(
@@ -114,6 +117,14 @@ export default class Home
         )
       }
     )
+
+    this.background.onResize(
+      {
+        screen: this.screen, 
+        viewport: this.viewport
+      }
+    )
+
   }
 
   /* 
@@ -122,16 +133,16 @@ export default class Home
 
   show()
   {
-    this.portrait.show()
+    this.dElems.forEach(el => { el.show() } )
+    this.sElems.forEach(el => { el.show() } )
     this.background.show()
-    this.works.forEach(el => { el.show() })
   }
 
   hide()
   {
-    this.portrait.hide()
+    this.dElems.forEach(el => { el.hide() })
+    this.sElems.forEach(el => { el.hide() })
     this.background.hide()
-    this.works.forEach(el => { el.hide() })
   }
 
   /* 
@@ -142,11 +153,12 @@ export default class Home
   {
     const current = (scroll.current / this.screen.height) * this.viewport.height
 
-    this.group.position.y = current * 0.9
+    this.dGroup.position.y = current * 0.9
+    this.sGroup.position.y = current * 1.0
 
-    this.portrait.update()
-    this.background.update()
-    this.works.forEach(el => { el.update() })
+    this.dElems.forEach(el => { el.update() })
+    this.sElems.forEach(el => { el.update() })
+    this.background.update(scroll)
   }
 
   /*
@@ -155,6 +167,7 @@ export default class Home
 
   destroy()
   {
-    this.scene.remove(this.group)
+    this.scene.remove(this.dGroup)
+    this.scene.remove(this.sGroup)
   }
 }

@@ -13,26 +13,76 @@ block content
           p.home__header__location__text!=home.header.location.replace(/\n/g, '<br>')
         .home__header__portrait 
           figure.home__header__portrait__figure 
-            img.home__header__portrait__figure__image(data-src=Build.image(home.header.selfPortrait.asset._ref).url() alt=home.header.selfPortrait.alt)
+            img.home__header__portrait__figure__image(data-src=Build.image(home.header.selfPortrait.asset._ref).url() alt=home.header.selfPortrait.alt data-type="delay")
         .home__header__description 
           p.home__header__description__text!=home.header.description.replace(/\n/g, '<br>')
         .home__header__btmTitle 
             h2.home__header__btmTitle__text!=home.header.title.replace(/\n/g, '<br>')
 
       section.home__showcase 
-        .home__showcase__title
+        .home__showcase__titleTopLeft
+          h2.home__showcase__title__text=home.showcaseTitle
+        .home__showcase__titleTopRight
           h2.home__showcase__title__text=home.showcaseTitle
         .home__showcase__gallery 
           each obj, index in home.showcase 
-            .home__showcase__gallery__image(data-index=index) 
+            .home__showcase__gallery__image
               a.home__showcase__gallery__image__link(href=Link=(`${obj._type}/${obj.slug}`) aria-label=obj.title)
-              .home__showcase__gallery__image__info__title 
-                h3.home__showcase__gallery__image__info__title__text=obj.title
+              .home__showcase__gallery__image__info 
+                h3.home__showcase__gallery__image__info__title=obj.title
               figure.home__showcase__gallery__image__figure
-                img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url())
+                img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url() data-type="static")
           .home__showcase__gallery__link 
             a.home__showcase__gallery__link__work(href=Link=('/work'))
               p.home__showcase__gallery__link__work__text see all
+        .home__showcase__titleBtmLeft
+          h2.home__showcase__title__text=home.showcaseTitle
+        .home__showcase__titleBtmRight
+          h2.home__showcase__title__text=home.showcaseTitle
 
       section.home__about 
+        .home__about__title 
+          h2.home__about__title__text=home.aboutSection.title 
+          .home__about__title__split
+          h2.home__about__title__text=home.aboutSection.title 
+          .home__about__title__split
+          h2.home__about__title__text=home.aboutSection.title 
+        .home__about__info 
+          .home__about__info__description 
+            p.home__about__info__description__text!=home.aboutSection.description.replace(/\n/g, '<br>')
+          .home__about__info__link 
+            a.home__about__info__link__about(href=Link=('/about'))
+              p.home__about__info__link__about__text=home.aboutSection.learnMore 
+        .home__about__left 
+          .home__about__left__large
+            figure.home__about__left__large__figure
+              img.home__about__left__large__figure__image(alt=home.aboutSection.leftImages.largeImage.alt data-src=Build.image(home.aboutSection.leftImages.largeImage.asset._ref).url() data-type="static" data-size="large")
+          .home__about__left__small
+            figure.home__about__left__small__figure
+              img.home__about__left__small__figure__image(alt=home.aboutSection.leftImages.smallImage.alt data-src=Build.image(home.aboutSection.leftImages.smallImage.asset._ref).url() data-type="delay")
+        .home__about__right
+          .home__about__right__large
+            figure.home__about__right__large__figure
+              img.home__about__right__large__figure__image(alt=home.aboutSection.rightImages.largeImage.alt data-src=Build.image(home.aboutSection.rightImages.largeImage.asset._ref).url() data-type="static" data-size="large")
+          .home__about__right__small
+            figure.home__about__right__small__figure
+              img.home__about__right__small__figure__image(alt=home.aboutSection.rightImages.smallImage.alt data-src=Build.image(home.aboutSection.rightImages.smallImage.asset._ref).url() data-type="delay" data-scroll="reverse")
+
+      footer.footer 
+        .footer__proxy
+        .footer__icons
+          .footer__icons__media
+            .footer__icons__media__div.outside__link
+              a.footer__icons__media__div__link(href=`mailto:${footer.emailIcon.email}`)
+              img.footer__icons__media__div__icon(data-src=Build.image(footer.emailIcon.asset._ref).url() alt=footer.emailIcon.alt)
+          each icon in footer.contactInformation
+            .footer__icons__media
+              .footer__icons__media__div.outside__link
+                a.footer__icons__media__div__link(href=(icon.link))
+                img.footer__icons__media__div__icon(data-src=Build.image(icon.asset._ref).url())
+        .footer__title 
+          h2.footer__title__text=footer.title
+          h2.footer__title__text=footer.title
+          h2.footer__title__text=footer.title
+
 
