@@ -21,6 +21,11 @@ export default class DelayedElement
     this.createMesh()
     this.createBounds()
     this.createAnimations()
+
+    this.animations = {
+      show: false, 
+      hide: false
+    }
   }
 
   createMaterial()
@@ -103,6 +108,23 @@ export default class DelayedElement
         paused: true
       }
     )
+
+    this.onShow = gsap.fromTo(
+      this.element, 
+      {
+        scaleY: 0.0, 
+      },
+      {
+        scaleY: 1.0, 
+        duration: 1.0, 
+        ease: 'power2.inOut',
+        paused: true,
+        onComplete: () => 
+        {
+          this.animations.show = true
+        }
+      }
+    )
   }
 
     /*
@@ -114,6 +136,7 @@ export default class DelayedElement
     this.onAlphaChange.play()
       .eventCallback('onComplete', () => 
       {
+        this.onShow.play()
         this.onStateChange.play()
       }
     )
@@ -121,6 +144,9 @@ export default class DelayedElement
 
   hide()
   {
+    this.animations.hide = true 
+
+    this.onShow.reverse()
     this.onStateChange.reverse()
     this.onAlphaChange.reverse()
   }
@@ -173,6 +199,9 @@ export default class DelayedElement
   update()
   {
     if(!this.bounds) return
+
+    if(!this.animations.show || this.animations.hide)
+      this.createBounds()
 
     this.updateScale()
     this.updateX()

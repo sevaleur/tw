@@ -5,8 +5,10 @@ import map from 'lodash/map'
 
 import Prefix from 'prefix'
 
-import AsyncLoad from 'classes/AsyncLoad'
+import SplitLines from 'animations/Observer/SplitLines'
+import Paragraph from 'animations/Observer/Paragraph'
 
+import AsyncLoad from 'classes/AsyncLoad'
 import ColorManager from 'classes/Colors'
 
 export default class Page 
@@ -16,7 +18,9 @@ export default class Page
     this.selector = element 
     this.selectorChildren = {
       ...elements, 
-      images: `[data-src]`
+      images: `[data-src]`,
+      animationParagraph: `[data-animation="paragraph"]`, 
+      animationLines: `[data-animation="splitLines"]`,
     }
     this.background = background 
     this.color = color
@@ -77,6 +81,41 @@ export default class Page
     })
 
     this.preloadImages()
+  }
+
+    /*
+    ANIMATIONS.
+  */
+
+  createAnimations(animations=false)
+  {
+    if(!animations) return 
+
+    this.animations = []
+
+    this.animationLines = map(
+      this.elements.animationLines, 
+      element =>
+      {
+        return new SplitLines({
+          element
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationLines)
+
+    this.animationParagraphs = map(
+      this.elements.animationParagraph, 
+      element =>
+      {
+        return new Paragraph({
+          element
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationParagraphs)
   }
 
   preloadImages()
@@ -190,6 +229,8 @@ export default class Page
   {
     if(this.elements.wrapper)
       this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+
+    each(this.animations, animation => animation.onResize())
   }
 
   update()

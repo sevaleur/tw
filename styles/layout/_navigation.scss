@@ -33,8 +33,6 @@
       height: 1rem; 
       width: 1rem; 
 
-      background: $color-carribean-green;
-
       border-radius: 100%;
 
       align-self: center;
@@ -91,22 +89,26 @@
     right: 6rem; 
 
     display: flex; 
+    overflow: hidden;
 
     &__text
     {
-  
+      opacity: 0; 
     }
 
     &__split 
     {
       align-self: flex-end;
 
-      height: 0.2rem; 
+      height: 2rem; 
       width: 2rem; 
 
       background: $color-aerospace-orange;
 
       padding: 0 1rem;
+
+      transform:scaleX(6.0);
+      transform-origin: center;
     }
   }
 }

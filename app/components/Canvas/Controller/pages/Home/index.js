@@ -22,6 +22,8 @@ export default class Home
     this.onResize()
 
     this.scene.add(this.dGroup, this.sGroup)
+
+    this.show()
   }
 
   /* 
@@ -151,6 +153,7 @@ export default class Home
 
   update(scroll)
   {
+    
     const current = (scroll.current / this.screen.height) * this.viewport.height
 
     this.dGroup.position.y = current * 0.9

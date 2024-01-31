@@ -10,7 +10,9 @@ export default class Preloader extends Component
     super({
       element: '.preloader',
       elements: {
-        numberText: '.preloader__number__text'
+        numberText: '.preloader__number__text',
+        nav: '.preloader__nav',
+        profession: '.preloader__profession',
       }
     })
 
@@ -57,6 +59,8 @@ export default class Preloader extends Component
 
     this.elements.numberText.innerHTML = `${Math.round(this.percent * 100)}`
 
+    this.animate()
+
     if(this.percent === 1)
       this.onLoaded()
   }
@@ -66,10 +70,12 @@ export default class Preloader extends Component
     return new Promise(resolve =>
     {
       gsap.to(
-        this.element,
+        this.elements.numberText,
         {
-          opacity: 0.0,
-          duration: 0.5,
+          yPercent: 100.0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+          delay: 0.5,
           onComplete: () =>
           {
             this.emit('completed')
@@ -83,9 +89,23 @@ export default class Preloader extends Component
     ANIMATIONS.
   */
 
-  animateCirles()
+  animate()
   {
-    
+    gsap.to(
+      this.elements.nav, 
+      {
+        scaleX: this.percent,
+        ease: 'linear'
+      }
+    )
+
+    gsap.to(
+      this.elements.profession, 
+      {
+        scaleX: this.percent,
+        ease: 'linear'
+      }
+    )
   }
 
   /*

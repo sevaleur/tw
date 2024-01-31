@@ -48,7 +48,7 @@ export default class Background
       this.material
     )
 
-    this.plane.position.z = -0.05
+    this.plane.position.z = -0.001
     this.scene.add(this.plane)
   }
 

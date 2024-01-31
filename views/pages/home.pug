@@ -43,16 +43,16 @@ block content
       section.home__about 
         .home__about__title 
           h2.home__about__title__text=home.aboutSection.title 
-          .home__about__title__split
+          .home__about__title__split(data-animation="splitLines")
           h2.home__about__title__text=home.aboutSection.title 
-          .home__about__title__split
+          .home__about__title__split(data-animation="splitLines")
           h2.home__about__title__text=home.aboutSection.title 
         .home__about__info 
           .home__about__info__description 
-            p.home__about__info__description__text!=home.aboutSection.description.replace(/\n/g, '<br>')
+            p.home__about__info__description__text(data-animation="paragraph")!=home.aboutSection.description.replace(/\n/g, '<br>')
           .home__about__info__link 
             a.home__about__info__link__about(href=Link=('/about'))
-              p.home__about__info__link__about__text=home.aboutSection.learnMore 
+              p.home__about__info__link__about__text(data-animation="paragraph")=home.aboutSection.learnMore 
         .home__about__left 
           .home__about__left__large
             figure.home__about__left__large__figure
@@ -64,9 +64,6 @@ block content
           .home__about__right__large
             figure.home__about__right__large__figure
               img.home__about__right__large__figure__image(alt=home.aboutSection.rightImages.largeImage.alt data-src=Build.image(home.aboutSection.rightImages.largeImage.asset._ref).url() data-type="static" data-size="large")
-          .home__about__right__small
-            figure.home__about__right__small__figure
-              img.home__about__right__small__figure__image(alt=home.aboutSection.rightImages.smallImage.alt data-src=Build.image(home.aboutSection.rightImages.smallImage.asset._ref).url() data-type="delay" data-scroll="reverse")
 
       footer.footer 
         .footer__proxy

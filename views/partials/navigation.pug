@@ -1,7 +1,7 @@
 nav.navigation
   .navigation__wrapper
     .navigation__availability 
-      .navigation__availability__color(data-available=navigation.availability)
+      .navigation__availability__color(data-available=`${navigation.availability}`)
       p.navigation__availability__text Available
 
     .navigation__menu
@@ -22,4 +22,4 @@ nav.navigation
     .navigation__profession 
       p.navigation__profession__text=navigation.professionLeft 
       .navigation__profession__split 
-      p.navigation__profession__rtext=navigation.professionRight
+      p.navigation__profession__text=navigation.professionRight

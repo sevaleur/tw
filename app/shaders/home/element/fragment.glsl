@@ -25,4 +25,5 @@ void main()
   vec4 image = texture2D(tMap, uv);
 
   gl_FragColor = image;
+  gl_FragColor.a = u_alpha;
 }

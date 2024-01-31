@@ -165,10 +165,7 @@ const handleReq = async(req) =>
 
   const navigation = await url(
     encodeURIComponent(
-      `*[_type == "navigation"]{
-        ..., 
-        nav_items[] ->
-      }`
+      `*[_type == "navigation"]`
     )
   )
 
@@ -177,6 +174,8 @@ const handleReq = async(req) =>
       `*[_type == "footer"]`
     )
   )
+
+  console.log(navigation)
   
   return {
     meta: meta.result[0],

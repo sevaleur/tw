@@ -1,7 +1,7 @@
 /* Recommended styles for Splitting */
-.splitting .word,
 .splitting .char {
   display: inline-block;
+  overflow: hidden;
 }
 
 /* Psuedo-element chars */

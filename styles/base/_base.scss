@@ -62,3 +62,15 @@ img
 {
   @extend %cover;
 }
+
+[data-animation="paragraph"]
+{
+  line-height: normal;
+
+  span
+  {
+    overflow: hidden;
+    display: inline-block;
+    padding: 0 0.2rem;
+  }
+}
