@@ -226,7 +226,6 @@ app.get('/work', async(req, res) =>
       }`
     )
   )
-
   res.render('pages/work',
   {
     ...partials,

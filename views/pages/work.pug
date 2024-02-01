@@ -5,4 +5,14 @@ block variables
 
 block content 
   .work 
+    .work__wrapper 
+      .work__gallery 
+        each element, idx in work.showcase 
+          .work__gallery__image 
+            a.work__gallery__image__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
+              figure.work__gallery__image__figure
+                img.work__gallery__image__figure__image(alt=element.image.alt data-src=Build.image(element.image.asset._ref).url())
+        .work__gallery__index
+          p.work__gallery__index__number
+          p.work__gallery__index__outof
   

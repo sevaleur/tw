@@ -11,8 +11,8 @@ export default class Work extends Page
       elements: {
         title: '.work__title__text'
       }, 
-      background: DARK_JUNGLE_GREEN,
-      color: ANTIQUE_WHITE
+      background: ANTIQUE_WHITE,
+      color: DARK_JUNGLE_GREEN
     })
   }
 
