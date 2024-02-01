@@ -1,9 +1,0 @@
-/*! animations/Line */
-
-/*! classes/Page */
-
-/*! utils/colorVariables */
-
-/*!*********************************!*\
-  !*** ./app/pages/home/index.js ***!
-  \*********************************/

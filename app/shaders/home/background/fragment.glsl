@@ -1,5 +1,6 @@
 uniform float u_scroll; 
 uniform float u_time; 
+uniform float u_alpha;
 
 varying vec2 v_uv; 
 
@@ -50,5 +51,5 @@ void main()
 
   vec3 final = mix(jungleGreen.rgb, aerospaceOrange.rgb, shade * (u_scroll * 0.5));
 
-  gl_FragColor = vec4(final, 1.0); 
+  gl_FragColor = vec4(final, u_alpha); 
 }

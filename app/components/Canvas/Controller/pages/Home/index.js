@@ -153,11 +153,10 @@ export default class Home
 
   update(scroll)
   {
-    
     const current = (scroll.current / this.screen.height) * this.viewport.height
-
+    
     this.dGroup.position.y = current * 0.9
-    this.sGroup.position.y = current * 1.0
+    this.sGroup.position.y = current
 
     this.dElems.forEach(el => { el.update() })
     this.sElems.forEach(el => { el.update() })

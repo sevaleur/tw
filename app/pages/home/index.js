@@ -2,6 +2,8 @@ import gsap from 'gsap'
 
 import Page from 'classes/Page'
 
+import Hover from 'animations/Hover'
+
 import { ANTIQUE_WHITE, DARK_JUNGLE_GREEN } from 'utils/colorVariables'
 
 export default class Home extends Page
@@ -15,7 +17,13 @@ export default class Home extends Page
         headerDesc: '.home__header__description__text',
         headerLocation: '.home__header__location__text',
         headerTopTitle: '.home__header__topTitle__text',
-        headerBtmTitle: '.home__header__btmTitle__text'
+        headerBtmTitle: '.home__header__btmTitle__text',
+        headerPortraitCover: '.home__header__portrait__cover',
+        workLinks: '.home__showcase__gallery__image',
+        workTopTitles: '.home__showcase__gallery__image__top__title',
+        workBtmTitles: '.home__showcase__gallery__image__btm__title',
+        aboutDescription: '.home__about__info__description__text',
+        aboutDescriptionLink: '.home__about__info__link__about__text',
       }, 
       background: ANTIQUE_WHITE,
       color: DARK_JUNGLE_GREEN
@@ -25,6 +33,16 @@ export default class Home extends Page
   create()
   {
     super.create()
+
+    this.home = {
+      animations: {
+        work: {
+          top: [], 
+          btm: []
+        }
+      }
+    }
+
     this.createAnimations()
   }
 
@@ -32,12 +50,28 @@ export default class Home extends Page
   {
     super.createAnimations(true)
 
+    this.onPortraitShow = gsap.fromTo(
+      this.elements.headerPortraitCover, 
+      {
+        scaleY: 1.0, 
+      }, 
+      {
+        scaleY: 0.0, 
+        duration: 1.0, 
+        delay: 0.5, 
+        ease: 'power2.inOut', 
+        paused: true
+      }
+    )
+
     this.onTitleShow = gsap.fromTo(
       [
         this.elements.headerTopTitle,
         this.elements.headerBtmTitle,
         this.elements.headerDesc, 
-        this.elements.headerLocation
+        this.elements.headerLocation,
+        this.elements.aboutDescription,
+        this.elements.aboutDescriptionLink
       ],
       {
         opacity: 0.0
@@ -48,27 +82,105 @@ export default class Home extends Page
         paused: true
       }
     )
+
+    this.home.animations.work.top = Array.from(
+      this.elements.workTopTitles,
+      title => 
+      {
+        return new Hover(
+          title,
+          true
+        ) 
+      }
+    )
+
+    this.home.animations.work.btm = Array.from(
+      this.elements.workBtmTitles,
+      title => 
+      {
+        return new Hover(
+          title,
+          false
+        ) 
+      }
+    )
+  }
+
+  onMouseEnter(idx)
+  {
+    this.home.animations.work.top[idx].show()
+    this.home.animations.work.btm[idx].show()
+  }
+
+  onMouseLeave(idx)
+  {
+    this.home.animations.work.top[idx].hide()
+    this.home.animations.work.btm[idx].hide()
   }
 
   show()
   {
     super.show()
 
+    this.onPortraitShow.play()
     this.onTitleShow.play()
   }
 
   hide()
   {
-    super.hide()
+    super.hide(true)
+
+    return new Promise(resolve => 
+      {
+        this.home.animations.work.top.forEach(
+          el => 
+          {
+            el.hide()
+          }
+        )
+
+        this.home.animations.work.btm.forEach(
+          el => 
+          {
+            el.hide()
+          }
+        )
+        
+        this.onTitleShow.reverse()
+        this.onPortraitShow.reverse()
+          .eventCallback(
+            'onReverseComplete', () => 
+          { 
+            gsap.delayedCall(0.2, () => { resolve() } ) 
+          }
+        )
+      }
+    )
   }
 
   addEventListeners()
   {
     super.addEventListeners()
+
+    this.elements.workLinks.forEach(
+      (link, idx) => 
+      {
+        link.addEventListener('mouseenter', this.onMouseEnter.bind(this, idx))
+        link.addEventListener('mouseleave', this.onMouseLeave.bind(this, idx))
+      }
+    )
   }
 
   removeEventListeners()
   {
     super.removeEventListeners()
+
+    this.elements.workLinks.forEach(
+      (link, idx) => 
+      {
+        link.removeEventListener('mouseenter', this.onMouseEnter)
+        link.removeEventListener('mouseleave', this.onMouseLeave)
+      }
+    )
   }
 }

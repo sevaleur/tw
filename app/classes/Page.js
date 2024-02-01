@@ -7,6 +7,8 @@ import Prefix from 'prefix'
 
 import SplitLines from 'animations/Observer/SplitLines'
 import Paragraph from 'animations/Observer/Paragraph'
+import ImageCover from 'animations/Observer/ImageCover'
+import Title from 'animations/Observer/Title'
 
 import AsyncLoad from 'classes/AsyncLoad'
 import ColorManager from 'classes/Colors'
@@ -20,7 +22,9 @@ export default class Page
       ...elements, 
       images: `[data-src]`,
       animationParagraph: `[data-animation="paragraph"]`, 
-      animationLines: `[data-animation="splitLines"]`,
+      animationLine: `[data-animation="splitLines"]`,
+      animationImage: `[data-animation="image"]`,
+      animationTitle: `[data-animation="title"]`
     }
     this.background = background 
     this.color = color
@@ -94,7 +98,7 @@ export default class Page
     this.animations = []
 
     this.animationLines = map(
-      this.elements.animationLines, 
+      this.elements.animationLine, 
       element =>
       {
         return new SplitLines({
@@ -116,6 +120,30 @@ export default class Page
     )
     
     this.animations.push(...this.animationParagraphs)
+
+    this.animationImages = map(
+      this.elements.animationImage, 
+      element =>
+      {
+        return new ImageCover({
+          element
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationImages)
+
+    this.animationTitles = map(
+      this.elements.animationTitle, 
+      element =>
+      {
+        return new Title({
+          element
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationTitles)
   }
 
   preloadImages()

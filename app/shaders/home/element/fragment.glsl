@@ -22,8 +22,13 @@ void main()
     v_uv.y * ratio.y + (1.0 - ratio.y) * 0.5
   );
 
+  float edge = 0.2;
+
   vec4 image = texture2D(tMap, uv);
 
   gl_FragColor = image;
   gl_FragColor.a = u_alpha;
+
+  /* gl_FragColor *= (smoothstep(0., edge, v_uv.x)) * (1. - smoothstep(1. - edge, 1., v_uv.x));
+  gl_FragColor *= (smoothstep(0., edge, v_uv.y)) * (1. - smoothstep(1. - edge, 1., v_uv.y)); */
 }

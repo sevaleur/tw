@@ -112,11 +112,6 @@ const handleAssets = async() =>
   if(!this.assets.includes(rightLarge))
       this.assets.push(rightLarge)
 
-  let rightSmall = build.image(home_images.result[0].aboutRight.smallImage.asset._ref).url()
-
-  if(!this.assets.includes(rightSmall))
-      this.assets.push(rightSmall)
-
   const all_galleries = await url(
     encodeURIComponent(
       `*[_type == "gallery"]{
@@ -174,8 +169,6 @@ const handleReq = async(req) =>
       `*[_type == "footer"]`
     )
   )
-
-  console.log(navigation)
   
   return {
     meta: meta.result[0],

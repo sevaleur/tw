@@ -31,9 +31,8 @@ export default class Background
         uniforms: {
           u_alpha: { value: 0.0 },
           u_scroll: { value: 0.0 },
-          u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_state: { value: 0.0 },
           u_time: { value: 0.0 },
+          u_planeSize: { value: [ 0.0, 0.0 ] }, 
           u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
@@ -76,19 +75,6 @@ export default class Background
         paused: true
       }
     )
-    
-    this.onStateChange = gsap.fromTo(
-      this.material.uniforms.u_state,
-      {
-        value: 0.0
-      },
-      {
-        value: 1.0,
-        duration: 1.0,
-        ease: 'power2.inOut',
-        paused: true
-      }
-    )
   }
 
     /*
@@ -98,16 +84,10 @@ export default class Background
   show()
   {
     this.onAlphaChange.play()
-      .eventCallback('onComplete', () => 
-      {
-        this.onStateChange.play()
-      }
-    )
   }
 
   hide()
   {
-    this.onStateChange.reverse()
     this.onAlphaChange.reverse()
   }
 

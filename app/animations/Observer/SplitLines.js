@@ -20,10 +20,10 @@ export default class SplitLines extends Animation
     this.onShow = gsap.fromTo(
       this.element, 
       {
-        scaleY: 15.0, 
+        scaleX: 0.0, 
       }, 
       {
-        scaleY: 1.0, 
+        scaleX: 1.0,
         duration: 1.0, 
         delay: 0.5,
         ease: 'expo.inOut', 

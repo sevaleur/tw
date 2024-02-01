@@ -22,8 +22,8 @@ export default class Controller
     this.geo = new PlaneGeometry(
       1, 
       1, 
-      100, 
-      100
+      1, 
+      1
     )
   }
 

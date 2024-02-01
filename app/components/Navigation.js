@@ -14,8 +14,12 @@ export default class Navigation extends Component
       {
         menu: '.navigation__menu', 
         availability: '.navigation__availability__color',
+        availableText: '.navigation__availability__text',
         split: '.navigation__profession__split',
-        profession: '.navigation__profession__text'
+        profession: '.navigation__profession__text',
+        linkLeft: '.navigation__list__left__link__text',
+        linkRight: '.navigation__list__right__link__text',
+        logo: '.navigation__list__logo__figure__image'
       }, 
     })
 
@@ -27,7 +31,7 @@ export default class Navigation extends Component
     super.create()
 
     this.createAnimations()
-
+    this.createTimeline()
     
     this.available = this.elements.availability.dataset.available
   }
@@ -38,9 +42,11 @@ export default class Navigation extends Component
       this.elements.availability, 
       {
         backgroundColor: ANTIQUE_WHITE, 
+        scale: 0.0,
       }, 
       {
         backgroundColor: CARRIBEAN_GREEN, 
+        scale: 1.0,
         duration: 0.8, 
         ease: 'power2.inOut', 
         paused: true
@@ -51,17 +57,37 @@ export default class Navigation extends Component
       this.elements.availability, 
       {
         backgroundColor: ANTIQUE_WHITE, 
+        scale: 0.0,
       }, 
       {
         backgroundColor: AEROSPACE_ORANGE, 
+        scale: 1.0,
         duration: 0.8, 
         ease: 'power2.inOut', 
         paused: true
       }
     )
 
-    this.onProfessionShow = gsap.fromTo(
-      this.elements.profession, 
+    this.onLogoShow = gsap.fromTo(
+      this.elements.logo, 
+      {
+        y: '-100%', 
+      }, 
+      {
+        y: '0%', 
+        duration: 1.0, 
+        ease: 'expo.inOut', 
+        paused: true
+      }
+    )
+
+    this.onNavShow = gsap.fromTo(
+      [
+        this.elements.profession,
+        this.elements.linkLeft, 
+        this.elements.linkRight,
+        this.elements.availableText
+      ], 
       {
         y: '100%', 
         opacity: 0.0
@@ -74,9 +100,12 @@ export default class Navigation extends Component
         paused: true
       }
     )
+  }
 
+  createTimeline()
+  {
     this.onSplitShow = gsap.timeline({
-      duration: 1.0, 
+      duration: .5, 
       ease: 'expo.inOut', 
       paused: true
     })
@@ -111,14 +140,15 @@ export default class Navigation extends Component
 
   show()
   {
-    this.available === 'true' 
-      ? this.onAvailability.play()
-      : this.onBusy.play()
-
     this.onSplitShow.play()
       .eventCallback("onComplete", () => 
       {
-        this.onProfessionShow.play()
+        this.available === 'true' 
+        ? this.onAvailability.play()
+        : this.onBusy.play()
+
+        this.onLogoShow.play()
+        this.onNavShow.play()
       })
   }
 

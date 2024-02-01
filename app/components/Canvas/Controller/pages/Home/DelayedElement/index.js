@@ -21,11 +21,6 @@ export default class DelayedElement
     this.createMesh()
     this.createBounds()
     this.createAnimations()
-
-    this.animations = {
-      show: false, 
-      hide: false
-    }
   }
 
   createMaterial()
@@ -39,7 +34,6 @@ export default class DelayedElement
           u_alpha: { value: 0.0 }, 
           u_imageSize: { value: [ 0.0, 0.0 ] }, 
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_state: { value: 0.0 }, 
           u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
@@ -68,6 +62,9 @@ export default class DelayedElement
       this.material
     )
 
+    if(this.element.dataset.size === 'small')
+      this.plane.position.z = 0.001
+
     this.scene.add(this.plane)
   }
 
@@ -95,36 +92,6 @@ export default class DelayedElement
         paused: true
       }
     )
-    
-    this.onStateChange = gsap.fromTo(
-      this.material.uniforms.u_state,
-      {
-        value: 0.0
-      },
-      {
-        value: 1.0,
-        duration: 1.0,
-        ease: 'power2.inOut',
-        paused: true
-      }
-    )
-
-    this.onShow = gsap.fromTo(
-      this.element, 
-      {
-        scaleY: 0.0, 
-      },
-      {
-        scaleY: 1.0, 
-        duration: 1.0, 
-        ease: 'power2.inOut',
-        paused: true,
-        onComplete: () => 
-        {
-          this.animations.show = true
-        }
-      }
-    )
   }
 
     /*
@@ -134,21 +101,12 @@ export default class DelayedElement
   show()
   {
     this.onAlphaChange.play()
-      .eventCallback('onComplete', () => 
-      {
-        this.onShow.play()
-        this.onStateChange.play()
-      }
-    )
   }
 
   hide()
   {
-    this.animations.hide = true 
-
-    this.onShow.reverse()
-    this.onStateChange.reverse()
-    this.onAlphaChange.reverse()
+    if(this.element.dataset.size === 'small')
+      this.onAlphaChange.reverse()
   }
 
    /*
@@ -199,9 +157,6 @@ export default class DelayedElement
   update()
   {
     if(!this.bounds) return
-
-    if(!this.animations.show || this.animations.hide)
-      this.createBounds()
 
     this.updateScale()
     this.updateX()

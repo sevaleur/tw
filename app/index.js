@@ -91,6 +91,8 @@ export default class App
 
     this.navigation.show()
     this.page.show()
+
+    this.preloader = null
   }
 
 
@@ -154,6 +156,8 @@ export default class App
 
   onTouchDown(e)
   {
+    if(this.preloader) return 
+
     if(this.canvas && this.canvas.onTouchDown)
       this.canvas.onTouchDown(e)
 
@@ -163,6 +167,8 @@ export default class App
 
   onTouchMove(e)
   {
+    if(this.preloader) return 
+
     if(this.canvas && this.canvas.onTouchMove)
       this.canvas.onTouchMove(e)
 
@@ -172,6 +178,8 @@ export default class App
 
   onTouchUp(e)
   {
+    if(this.preloader) return 
+
     if(this.canvas && this.canvas.onTouchUp)
       this.canvas.onTouchUp(e)
 
@@ -181,6 +189,8 @@ export default class App
 
   onMove(e)
   {
+    if(this.preloader) return 
+    
     if(this.canvas && this.canvas.onMove)
       this.canvas.onMove(e)
 
@@ -190,6 +200,8 @@ export default class App
 
   onWheel(e)
   {
+    if(this.preloader) return 
+
     const norm_wheel = normalizeWheel(e)
 
     if(this.canvas && this.canvas.onWheel)

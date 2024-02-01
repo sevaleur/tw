@@ -57,7 +57,7 @@ export default class Preloader extends Component
 
     this.percent = this.loaded / window.ASSETS.length
 
-    this.elements.numberText.innerHTML = `${Math.round(this.percent * 100)}`
+    this.elements.numberText.innerHTML = `${Math.round(this.percent * 100)}%`
 
     this.animate()
 

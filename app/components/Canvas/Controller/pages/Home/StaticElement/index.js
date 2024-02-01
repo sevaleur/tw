@@ -62,9 +62,6 @@ export default class StaticElement
       this.geo, 
       this.material
     )
-
-    if(this.element.dataset.size === 'large')
-      this.plane.position.z = -0.05
     
     this.scene.add(this.plane)
   }
@@ -93,19 +90,6 @@ export default class StaticElement
         paused: true
       }
     )
-    
-    this.onStateChange = gsap.fromTo(
-      this.material.uniforms.u_state,
-      {
-        value: 0.0
-      },
-      {
-        value: 1.0,
-        duration: 1.0,
-        ease: 'power2.inOut',
-        paused: true
-      }
-    )
   }
 
     /*
@@ -115,16 +99,10 @@ export default class StaticElement
   show()
   {
     this.onAlphaChange.play()
-      .eventCallback('onComplete', () => 
-      {
-        this.onStateChange.play()
-      }
-    )
   }
 
   hide()
   {
-    this.onStateChange.reverse()
     this.onAlphaChange.reverse()
   }
 
