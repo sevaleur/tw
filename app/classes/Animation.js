@@ -20,11 +20,11 @@ export default class Animation extends Component
       {
         if(entry.isIntersecting)
         {
-          this.show()
+          this.onEnter()
         }
         else
         {
-          this.hide()
+          this.onLeave()
         }
       })
     })
@@ -32,12 +32,12 @@ export default class Animation extends Component
     this.observer.observe(this.element)
   }
 
-  show()
+  onEnter()
   {
 
   }
 
-  hide()
+  onLeave()
   {
 
   }

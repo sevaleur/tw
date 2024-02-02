@@ -9,6 +9,7 @@ import SplitLines from 'animations/Observer/SplitLines'
 import Paragraph from 'animations/Observer/Paragraph'
 import ImageCover from 'animations/Observer/ImageCover'
 import Title from 'animations/Observer/Title'
+import Icon from 'animations/Observer/Icon'
 
 import AsyncLoad from 'classes/AsyncLoad'
 import ColorManager from 'classes/Colors'
@@ -24,7 +25,8 @@ export default class Page
       animationParagraph: `[data-animation="paragraph"]`, 
       animationLine: `[data-animation="splitLines"]`,
       animationImage: `[data-animation="image"]`,
-      animationTitle: `[data-animation="title"]`
+      animationTitle: `[data-animation="title"]`,
+      animationIcon: `[data-animation="icon"]`
     }
     this.background = background 
     this.color = color
@@ -93,9 +95,10 @@ export default class Page
 
   createAnimations(animations=false)
   {
+    this.animations = []
+
     if(!animations) return 
 
-    this.animations = []
 
     this.animationLines = map(
       this.elements.animationLine, 
@@ -144,6 +147,18 @@ export default class Page
     )
     
     this.animations.push(...this.animationTitles)
+
+    this.animationIcons = map(
+      this.elements.animationIcon, 
+      element =>
+      {
+        return new Icon({
+          element
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationIcons)
   }
 
   preloadImages()
@@ -206,6 +221,13 @@ export default class Page
     }
     else 
     {
+      this.animations.forEach(
+        el => 
+        {
+          el.onLeave()
+        }
+      )
+
       this.removeEventListeners()
     }
   }

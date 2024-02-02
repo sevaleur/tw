@@ -1,0 +1,13 @@
+/*! animations/Hover/Visualiser */
+
+/*! animations/Hover/WP_Title */
+
+/*! classes/Page */
+
+/*! gsap */
+
+/*! utils/colorVariables */
+
+/*!*********************************!*\
+  !*** ./app/pages/work/index.js ***!
+  \*********************************/

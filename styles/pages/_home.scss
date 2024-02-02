@@ -300,6 +300,8 @@
         
         transform: translateX(-50%);
 
+        width:fit-content;
+
         &__work 
         {
           display: flex; 
@@ -412,6 +414,7 @@
 
         position: relative; 
 
+        width:fit-content;
 
         &__url 
         {

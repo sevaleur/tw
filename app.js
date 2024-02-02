@@ -196,6 +196,7 @@ app.get('/', async(req, res) =>
           _type, 
           title,
           "image": images[0],
+          "image2": images[1],
           "slug": slug.current
         }
       }`
@@ -221,6 +222,7 @@ app.get('/work', async(req, res) =>
           _type, 
           title, 
           "image": images[0], 
+          "image2": images[1],
           "slug": slug.current
         }
       }`

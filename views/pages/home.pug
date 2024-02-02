@@ -39,7 +39,7 @@ block content
             a.home__showcase__gallery__link__work(href=Link=('/work'))
               p.home__showcase__gallery__link__work__text see all
               figure.home__showcase__gallery__link__work__icon
-                img.home__showcase__gallery__link__work__icon__media(data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
+                img.home__showcase__gallery__link__work__icon__media(data-animation="icon" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
         .home__showcase__titleBtmLeft
           h2.home__showcase__title__text=home.showcaseTitle
         .home__showcase__titleBtmRight
@@ -59,7 +59,7 @@ block content
             a.home__about__info__link__url(href=Link=('/about'))
               p.home__about__info__link__url__text(data-animation="paragraph")=home.aboutSection.learnMore 
               figure.home__about__info__link__url__icon
-                img.home__about__info__link__url__icon__media(data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
+                img.home__about__info__link__url__icon__media(data-animation="icon" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
         .home__about__left
           .home__about__left__large
             figure.home__about__left__large__figure
@@ -78,12 +78,12 @@ block content
           .footer__icons__media
             .footer__icons__media__div.outside__link
               a.footer__icons__media__div__link(href=`mailto:${footer.emailIcon.email}`)
-              img.footer__icons__media__div__icon(data-src=Build.image(footer.emailIcon.asset._ref).url() alt=footer.emailIcon.alt)
+              img.footer__icons__media__div__icon(data-animation="icon" data-src=Build.image(footer.emailIcon.asset._ref).url() alt=footer.emailIcon.alt)
           each icon in footer.contactInformation
             .footer__icons__media
               .footer__icons__media__div.outside__link
                 a.footer__icons__media__div__link(href=(icon.link))
-                img.footer__icons__media__div__icon(data-src=Build.image(icon.asset._ref).url())
+                img.footer__icons__media__div__icon(data-animation="icon" data-src=Build.image(icon.asset._ref).url())
         .footer__title 
           h2.footer__title__split(data-animation="splitLines")
           h2.footer__title__text(data-animation="title")=footer.title

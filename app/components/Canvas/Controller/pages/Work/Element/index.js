@@ -6,21 +6,26 @@ import fragment from 'shaders/work/fragment.glsl'
 
 export default class Element
 {
-  constructor({ element, index, template, link, geometry, scene, screen, viewport })
+  constructor({ element, index, link, displacement, template, geometry, scene, screen, viewport })
   {
     this.element = element 
     this.index = index
+    this.link = link
+    this.disp = displacement
     this.template = template 
     this.geo = geometry 
     this.scene = scene 
     this.screen = screen 
     this.viewport = viewport
 
+    this.time = 0
+
     this.createMaterial()
     this.createTexture()
     this.createMesh()
     this.createBounds()
     this.createAnimations()
+    this.addEventListeners()
   }
 
   createMaterial()
@@ -31,7 +36,13 @@ export default class Element
         fragmentShader: fragment, 
         uniforms: {
           tMap: { value: null}, 
+          tHover: { value: null },
+          displacement: { value: this.disp },
           u_alpha: { value: 0.0 }, 
+          u_state: { value: 0.5},
+          u_time: { value: 0.0 },
+          u_width: { value: 0.1 }, 
+          u_radius: { value: 0.2 },
           u_imageSize: { value: [ 0.0, 0.0 ] }, 
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
           u_state: { value: 0.0 }, 
@@ -45,10 +56,13 @@ export default class Element
   createTexture()
   {
     let src = this.element.getAttribute('data-src')
+    let hoverSrc = this.element.getAttribute('data-hover')
 
     this.texture = window.IMAGE_TEXTURES[src]
+    this.texture2 = window.IMAGE_TEXTURES[hoverSrc]
 
     this.material.uniforms.tMap.value = this.texture 
+    this.material.uniforms.tHover.value = this.texture2
     
     this.material.uniforms.u_imageSize.value = [
       this.texture.source.data.naturalWidth,
@@ -90,11 +104,34 @@ export default class Element
         paused: true
       }
     )
+
+    this.onStateChange = gsap.fromTo(
+      this.material.uniforms.u_state, 
+      {
+        value: 0.0, 
+      }, 
+      {
+        value: 0.2, 
+        duration: 1.0, 
+        ease: 'power2.inOut', 
+        paused: true
+      }
+    )
   }
 
     /*
     ANIMATIONS.
   */
+
+  onMouseEnter()
+  {
+    this.onStateChange.play()
+  }
+
+  onMouseLeave()
+  {
+    this.onStateChange.reverse()
+  }
 
   show()
   {
@@ -103,7 +140,7 @@ export default class Element
 
   hide()
   {
-    this.onAlphaChange.reverse()
+
   }
 
    /*
@@ -155,8 +192,18 @@ export default class Element
   {
     if(!this.bounds) return
 
+    this.time += 0.005
+
+    this.plane.material.uniforms.u_time.value = this.time
+
     this.updateScale()
     this.updateX()
     this.updateY()
+  }
+
+  addEventListeners()
+  {
+    this.link.addEventListener('mouseenter', this.onMouseEnter.bind(this))
+    this.link.addEventListener('mouseleave', this.onMouseLeave.bind(this))
   }
 }

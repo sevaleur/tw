@@ -37,17 +37,13 @@ export default class Title extends Animation
     )
   }
 
-  show()
+  onEnter()
   {
-    if(this.finished) return 
-
     this.onShow.play()
   }
 
-  hide()
+  onLeave()
   {
-    if(this.finished) return 
-    
     this.onShow.reverse()
   }
 }

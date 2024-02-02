@@ -55,10 +55,8 @@ export default class Paragraph extends Animation
     )
   }
 
-  show()
+  onEnter()
   {
-    if(this.finished) return 
-
     this.lineAnimations.forEach(
       line => 
       {
@@ -67,10 +65,8 @@ export default class Paragraph extends Animation
     )
   }
 
-  hide()
+  onLeave()
   {
-    if(this.finished) return 
-
     this.lineAnimations.forEach(
       line => 
       {

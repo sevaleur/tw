@@ -41,14 +41,14 @@ export default class ImageCover extends Animation
     )
   }
 
-  show()
+  onEnter()
   {
     if(this.finished) return 
 
     this.onImageShow.play()
   }
 
-  hide()
+  onLeave()
   {
     if(this.finished) return 
 

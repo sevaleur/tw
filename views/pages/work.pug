@@ -5,14 +5,33 @@ block variables
 
 block content 
   .work 
+    .work__borders
     .work__wrapper 
       .work__gallery 
         each element, idx in work.showcase 
           .work__gallery__image 
+            .work__gallery__image__cover
             a.work__gallery__image__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
               figure.work__gallery__image__figure
-                img.work__gallery__image__figure__image(alt=element.image.alt data-src=Build.image(element.image.asset._ref).url())
-        .work__gallery__index
-          p.work__gallery__index__number
-          p.work__gallery__index__outof
+                img.work__gallery__image__figure__image(alt=element.image.alt data-src=Build.image(element.image.asset._ref).url() data-hover=Build.image(element.image2.asset._ref).url() data-displacement="/img/displacement.jpeg")
+
+    .work__visualiser 
+      each element, idx in work.showcase 
+        .work__visualiser__box
+          .work__visualiser__box__cover
+          .work__visualiser__box__inner
   
+    .work__index 
+      .work__index__current
+        each element, idx in work.showcase
+          .work__index__number
+            p.work__index__number__text=idx
+      .work__index__slash
+        p.work__index__slash__text |
+      .work__index__total
+        p.work__index__total__text
+
+    .work__titles
+      each element, idx in work.showcase 
+        .work__titles__title
+          h2.work__titles__title__text=element.title

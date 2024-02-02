@@ -36,17 +36,13 @@ export default class SplitLines extends Animation
     )
   }
 
-  show()
+  onEnter()
   {
-    if(this.finished) return 
-
     this.onShow.play()
   }
 
-  hide()
-  {
-    if(this.finished) return 
-    
+  onLeave()
+  { 
     this.onShow.reverse()
   }
 }

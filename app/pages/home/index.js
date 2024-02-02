@@ -2,7 +2,7 @@ import gsap from 'gsap'
 
 import Page from 'classes/Page'
 
-import Hover from 'animations/Hover'
+import FP_Title from 'animations/Hover/FP_Title'
 
 import { ANTIQUE_WHITE, DARK_JUNGLE_GREEN } from 'utils/colorVariables'
 
@@ -22,8 +22,12 @@ export default class Home extends Page
         workLinks: '.home__showcase__gallery__image',
         workTopTitles: '.home__showcase__gallery__image__top__title',
         workBtmTitles: '.home__showcase__gallery__image__btm__title',
+        aboutTitle: '.home__about__title__text',
+        aboutSplit: '.home__about__title__split',
         aboutDescription: '.home__about__info__description__text',
         aboutDescriptionLink: '.home__about__info__link__about__text',
+        footerTitle: '.footer__title__text',
+        footerSplit: '.footer__title__split'
       }, 
       background: ANTIQUE_WHITE,
       color: DARK_JUNGLE_GREEN
@@ -87,7 +91,7 @@ export default class Home extends Page
       this.elements.workTopTitles,
       title => 
       {
-        return new Hover(
+        return new FP_Title(
           title,
           true
         ) 
@@ -98,7 +102,7 @@ export default class Home extends Page
       this.elements.workBtmTitles,
       title => 
       {
-        return new Hover(
+        return new FP_Title(
           title,
           false
         ) 

@@ -1,4 +1,4 @@
-import { Group } from 'three' 
+import { Group, TextureLoader } from 'three' 
 
 import Element from './Element'
 
@@ -33,6 +33,9 @@ export default class Work
     this.home_wrapper = document.querySelector('.work__wrapper')
 
     this.elements = document.querySelectorAll('.work__gallery__image__figure__image')
+    this.links = document.querySelectorAll('.work__gallery__image__link')
+
+    this.disp = new TextureLoader().load(this.elements[0].dataset.displacement)
   }
 
   createImages()
@@ -45,6 +48,8 @@ export default class Work
           {
             element,
             index,
+            link: this.links[index],
+            displacement: this.disp,
             template: this.template,
             geometry: this.geo, 
             scene: this.group, 
