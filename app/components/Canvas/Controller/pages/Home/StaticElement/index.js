@@ -1,12 +1,12 @@
 import { ShaderMaterial, Mesh } from 'three'
 import gsap from 'gsap'
 
-import vertex from 'shaders/home/element/vertex.glsl'
-import fragment from 'shaders/home/element/fragment.glsl'
+import vertex from 'shaders/vertex.glsl'
+import fragment from 'shaders/cover/fragment.glsl'
 
 export default class StaticElement
 {
-  constructor({ element, index, template, link, geometry, scene, screen, viewport })
+  constructor({ element, index, template, geometry, scene, screen, viewport })
   {
     this.element = element 
     this.index = index

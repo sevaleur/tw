@@ -1,0 +1,16 @@
+.home 
+{
+  @extend %page;
+
+  z-index: z('content');
+
+  &__wrapper 
+  {
+    
+  }
+}
+
+@import './animations/animations';
+@import './sections/header';
+@import './sections/showcase';
+@import './sections/about';

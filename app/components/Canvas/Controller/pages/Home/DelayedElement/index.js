@@ -1,8 +1,8 @@
 import { ShaderMaterial, Mesh } from 'three'
 import gsap from 'gsap'
 
-import vertex from 'shaders/home/element/vertex.glsl'
-import fragment from 'shaders/home/element/fragment.glsl'
+import vertex from 'shaders/vertex.glsl'
+import fragment from 'shaders/cover/fragment.glsl'
 
 export default class DelayedElement
 {

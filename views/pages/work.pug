@@ -10,7 +10,6 @@ block content
       .work__gallery 
         each element, idx in work.showcase 
           .work__gallery__image 
-            .work__gallery__image__cover
             a.work__gallery__image__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)
               figure.work__gallery__image__figure
                 img.work__gallery__image__figure__image(alt=element.image.alt data-src=Build.image(element.image.asset._ref).url() data-hover=Build.image(element.image2.asset._ref).url() data-displacement="/img/displacement.jpeg")

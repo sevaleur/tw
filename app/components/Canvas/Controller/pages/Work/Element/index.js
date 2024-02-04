@@ -1,8 +1,8 @@
 import { ShaderMaterial, Mesh } from 'three'
 import gsap from 'gsap'
 
-import vertex from 'shaders/work/vertex.glsl'
-import fragment from 'shaders/work/fragment.glsl'
+import vertex from 'shaders/vertex.glsl'
+import fragment from 'shaders/hover/fragment.glsl'
 
 export default class Element
 {
@@ -19,12 +19,16 @@ export default class Element
     this.viewport = viewport
 
     this.time = 0
+    this.animations = {
+      show: false, 
+      hide: false
+    }
 
     this.createMaterial()
     this.createTexture()
     this.createMesh()
-    this.createBounds()
     this.createAnimations()
+    this.createBounds()
     this.addEventListeners()
   }
 
@@ -39,10 +43,10 @@ export default class Element
           tHover: { value: null },
           displacement: { value: this.disp },
           u_alpha: { value: 0.0 }, 
-          u_state: { value: 0.5},
+          u_state: { value: 0.0},
           u_time: { value: 0.0 },
           u_width: { value: 0.1 }, 
-          u_radius: { value: 0.2 },
+          u_radius: { value: 0.3 },
           u_imageSize: { value: [ 0.0, 0.0 ] }, 
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
           u_state: { value: 0.0 }, 
@@ -117,6 +121,24 @@ export default class Element
         paused: true
       }
     )
+
+    this.onShow = gsap.fromTo(
+      this.element, 
+      {
+        scale: 0
+      },
+      {
+        scale: 1.0, 
+        duration: 1.0, 
+        delay: 0.2 * this.index, 
+        ease: 'power2.inOut',
+        paused: true,
+        onComplete: () => 
+        {
+          this.animations.show = true 
+        }
+      }
+    )
   }
 
     /*
@@ -136,11 +158,14 @@ export default class Element
   show()
   {
     this.onAlphaChange.play()
+    this.onShow.play()
   }
 
   hide()
   {
+    this.animations.hide = true 
 
+    this.onShow.delay(0.2 * this.index).reverse()
   }
 
    /*
@@ -195,6 +220,9 @@ export default class Element
     this.time += 0.005
 
     this.plane.material.uniforms.u_time.value = this.time
+
+    if(!this.animations.show || this.animations.hide)
+      this.createBounds()
 
     this.updateScale()
     this.updateX()

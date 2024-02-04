@@ -1,8 +1,8 @@
 import { ShaderMaterial, Mesh } from 'three'
 import gsap from 'gsap'
 
-import vertex from 'shaders/home/background/vertex.glsl'
-import fragment from 'shaders/home/background/fragment.glsl'
+import vertex from 'shaders/vertex.glsl'
+import fragment from 'shaders/noise/fragment.glsl'
 
 export default class Background
 {

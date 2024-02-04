@@ -25,21 +25,26 @@ block content
           h2.home__showcase__title__text=home.showcaseTitle
         .home__showcase__titleTopRight
           h2.home__showcase__title__text=home.showcaseTitle
-        .home__showcase__gallery 
-          each obj, index in home.showcase 
-            .home__showcase__gallery__image
-              a.home__showcase__gallery__image__link(href=Link=(`${obj._type}/${obj.slug}`) aria-label=obj.title)
-              .home__showcase__gallery__image__top
-                h3.home__showcase__gallery__image__top__title=obj.title
-              .home__showcase__gallery__image__btm 
-                h3.home__showcase__gallery__image__btm__title=obj.title
-              figure.home__showcase__gallery__image__figure
-                img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url() data-type="static")
+        .home__showcase__gallery(data-type="background")
+          .home__showcase__gallery__wrapper
+            each obj, index in home.showcase 
+              .home__showcase__gallery__image
+                a.home__showcase__gallery__image__link(href=Link=(`${obj._type}/${obj.slug}`) aria-label=obj.title)
+                .home__showcase__gallery__image__title
+                  svg.home__showcase__gallery__image__title__svg(xmlns='http://www.w3.org/2000/svg' xml:lang='en' xmlns:xlink='http://www.w3.org/1999/xlink' viewbox='0 0 500 500')
+                    defs
+                      path#textcircle.circlepath(d='M250,400\
+                      a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z' transform='rotate(12,250,250)')
+                    rect(width='100%' height='100%' fill="transparent")
+                    text
+                      textpath.textpath(xlink:href='#textcircle' aria-label=obj.title textlength='300')=obj.title
+                figure.home__showcase__gallery__image__figure
+                  img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url() data-hover=Build.image(obj.image2.asset._ref).url() data-displacement="/img/displacement.jpeg" data-type="circle")
           .home__showcase__gallery__link 
             a.home__showcase__gallery__link__work(href=Link=('/work'))
               p.home__showcase__gallery__link__work__text see all
               figure.home__showcase__gallery__link__work__icon
-                img.home__showcase__gallery__link__work__icon__media(data-animation="icon" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
+                img.home__showcase__gallery__link__work__icon__media(data-animation="scale" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
         .home__showcase__titleBtmLeft
           h2.home__showcase__title__text=home.showcaseTitle
         .home__showcase__titleBtmRight
@@ -47,19 +52,17 @@ block content
 
       section.home__about 
         .home__about__title 
-          h2.home__about__title__text(data-animation="title")=home.aboutSection.title
-          .home__about__title__split(data-animation="splitLines")
-          h2.home__about__title__text(data-animation="title")=home.aboutSection.title 
-          .home__about__title__split(data-animation="splitLines")
-          h2.home__about__title__text(data-animation="title")=home.aboutSection.title 
+          h2.home__about__title__text(data-animation="triple")=home.aboutSection.title
+          h2.home__about__title__text(data-animation="triple")=home.aboutSection.title 
+          h2.home__about__title__text(data-animation="triple")=home.aboutSection.title 
         .home__about__info 
           .home__about__info__description 
-            p.home__about__info__description__text(data-animation="paragraph")!=home.aboutSection.description.replace(/\n/g, '<br>')
+            p.home__about__info__description__text(data-animation="lsYAlpha")!=home.aboutSection.description.replace(/\n/g, '<br>')
           .home__about__info__link 
             a.home__about__info__link__url(href=Link=('/about'))
-              p.home__about__info__link__url__text(data-animation="paragraph")=home.aboutSection.learnMore 
+              p.home__about__info__link__url__text(data-animation="lsYAlpha")=home.aboutSection.learnMore 
               figure.home__about__info__link__url__icon
-                img.home__about__info__link__url__icon__media(data-animation="icon" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
+                img.home__about__info__link__url__icon__media(data-animation="scale" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
         .home__about__left
           .home__about__left__large
             figure.home__about__left__large__figure
@@ -78,15 +81,15 @@ block content
           .footer__icons__media
             .footer__icons__media__div.outside__link
               a.footer__icons__media__div__link(href=`mailto:${footer.emailIcon.email}`)
-              img.footer__icons__media__div__icon(data-animation="icon" data-src=Build.image(footer.emailIcon.asset._ref).url() alt=footer.emailIcon.alt)
+              img.footer__icons__media__div__icon(data-animation="scale" data-src=Build.image(footer.emailIcon.asset._ref).url() alt=footer.emailIcon.alt)
           each icon in footer.contactInformation
             .footer__icons__media
               .footer__icons__media__div.outside__link
                 a.footer__icons__media__div__link(href=(icon.link))
-                img.footer__icons__media__div__icon(data-animation="icon" data-src=Build.image(icon.asset._ref).url())
+                img.footer__icons__media__div__icon(data-animation="scale" data-src=Build.image(icon.asset._ref).url())
         .footer__title 
-          h2.footer__title__split(data-animation="splitLines")
-          h2.footer__title__text(data-animation="title")=footer.title
-          h2.footer__title__split(data-animation="splitLines")
+          h2.footer__title__split(data-animation="scaleX")
+          h2.footer__title__text(data-animation="yAlpha")=footer.title
+          h2.footer__title__split(data-animation="scaleX")
 
 

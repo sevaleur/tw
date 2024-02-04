@@ -1,0 +1,10 @@
+@keyframes rotation 
+{
+  0%{
+    transform: translateY(-11rem)rotate(0deg)
+  }
+
+  100%{
+    transform: translateY(-11rem)rotate((360deg))
+  }
+}

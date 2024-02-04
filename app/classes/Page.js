@@ -5,11 +5,12 @@ import map from 'lodash/map'
 
 import Prefix from 'prefix'
 
-import SplitLines from 'animations/Observer/SplitLines'
-import Paragraph from 'animations/Observer/Paragraph'
-import ImageCover from 'animations/Observer/ImageCover'
-import Title from 'animations/Observer/Title'
-import Icon from 'animations/Observer/Icon'
+import Scale from 'animations/Observer/Scale'
+import ScaleX from 'animations/Observer/ScaleX'
+import NegateScaleY from 'animations/Observer/NegateScaleY'
+import YAlpha from 'animations/Observer/YAlpha'
+import LineSplitYAlpha from 'animations/observer/LineSplitYAlpha'
+import Triple from 'animations/Observer/Triple'
 
 import AsyncLoad from 'classes/AsyncLoad'
 import ColorManager from 'classes/Colors'
@@ -22,11 +23,12 @@ export default class Page
     this.selectorChildren = {
       ...elements, 
       images: `[data-src]`,
-      animationParagraph: `[data-animation="paragraph"]`, 
-      animationLine: `[data-animation="splitLines"]`,
-      animationImage: `[data-animation="image"]`,
-      animationTitle: `[data-animation="title"]`,
-      animationIcon: `[data-animation="icon"]`
+      animationScale: `[data-animation="scale"]`,
+      animationScaleX: `[data-animation="scaleX"]`,
+      animationNegateY: `[data-animation="negateY"]`,
+      animationYAlpha: `[data-animation="yAlpha"]`,
+      animationLSYAlpha: `[data-animation="lsYAlpha"]`,
+      animationTriple: `[data-animation="triple"]`,
     }
     this.background = background 
     this.color = color
@@ -100,65 +102,80 @@ export default class Page
     if(!animations) return 
 
 
-    this.animationLines = map(
-      this.elements.animationLine, 
+    this.animationXScale = map(
+      this.elements.animationScaleX, 
       element =>
       {
-        return new SplitLines({
+        return new ScaleX({
           element
         })
       }
     )
     
-    this.animations.push(...this.animationLines)
+    this.animations.push(...this.animationXScale)
 
-    this.animationParagraphs = map(
-      this.elements.animationParagraph, 
+    this.animationNegateScaleY = map(
+      this.elements.animationNegateY, 
       element =>
       {
-        return new Paragraph({
+        return new NegateScaleY({
           element
         })
       }
     )
     
-    this.animations.push(...this.animationParagraphs)
+    this.animations.push(...this.animationNegateScaleY)
 
-    this.animationImages = map(
-      this.elements.animationImage, 
+    this.animationAlphaY = map(
+      this.elements.animationYAlpha, 
       element =>
       {
-        return new ImageCover({
+        return new YAlpha({
           element
         })
       }
     )
     
-    this.animations.push(...this.animationImages)
+    this.animations.push(...this.animationAlphaY)
 
-    this.animationTitles = map(
-      this.elements.animationTitle, 
+    this.animationLSYAlpha = map(
+      this.elements.animationLSYAlpha, 
       element =>
       {
-        return new Title({
+        return new LineSplitYAlpha({
           element
         })
       }
     )
     
-    this.animations.push(...this.animationTitles)
+    this.animations.push(...this.animationLSYAlpha)
 
-    this.animationIcons = map(
-      this.elements.animationIcon, 
+    this.animationTriples = map(
+      this.elements.animationTriple, 
+      (element, idx) =>
+      {
+        return new Triple({
+          element,
+          top: 25 * idx, 
+          left: 50 - (this.elements.animationTriple.length - idx),
+          alpha: 0.33 * (idx + 1)
+        })
+      }
+    )
+    
+    this.animations.push(...this.animationTriples)
+
+    this.animationScale = map(
+      this.elements.animationScale, 
       element =>
       {
-        return new Icon({
+        return new Scale({
           element
         })
       }
     )
     
-    this.animations.push(...this.animationIcons)
+    this.animations.push(...this.animationScale)
   }
 
   preloadImages()

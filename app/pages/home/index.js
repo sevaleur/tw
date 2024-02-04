@@ -2,8 +2,6 @@ import gsap from 'gsap'
 
 import Page from 'classes/Page'
 
-import FP_Title from 'animations/Hover/FP_Title'
-
 import { ANTIQUE_WHITE, DARK_JUNGLE_GREEN } from 'utils/colorVariables'
 
 export default class Home extends Page
@@ -19,15 +17,17 @@ export default class Home extends Page
         headerTopTitle: '.home__header__topTitle__text',
         headerBtmTitle: '.home__header__btmTitle__text',
         headerPortraitCover: '.home__header__portrait__cover',
-        workLinks: '.home__showcase__gallery__image',
-        workTopTitles: '.home__showcase__gallery__image__top__title',
-        workBtmTitles: '.home__showcase__gallery__image__btm__title',
+        workGallery: '.home__showcase__gallery',
+        workTitle: '.home__showcase__title__text',
+        workLinks: '.home__showcase__gallery__image__link',
+        workTitles: '.home__showcase__gallery__image__title',
+        workSvg: '.home__showcase__gallery__image__title__svg',
         aboutTitle: '.home__about__title__text',
-        aboutSplit: '.home__about__title__split',
         aboutDescription: '.home__about__info__description__text',
         aboutDescriptionLink: '.home__about__info__link__about__text',
         footerTitle: '.footer__title__text',
-        footerSplit: '.footer__title__split'
+        footerSplit: '.footer__title__split',
+        path: '.circlepath',
       }, 
       background: ANTIQUE_WHITE,
       color: DARK_JUNGLE_GREEN
@@ -40,10 +40,7 @@ export default class Home extends Page
 
     this.home = {
       animations: {
-        work: {
-          top: [], 
-          btm: []
-        }
+        workTitles: []
       }
     }
 
@@ -72,8 +69,10 @@ export default class Home extends Page
       [
         this.elements.headerTopTitle,
         this.elements.headerBtmTitle,
-        this.elements.headerDesc, 
         this.elements.headerLocation,
+        this.elements.headerDesc, 
+        this.elements.workGallery,
+        this.elements.workTitle,
         this.elements.aboutDescription,
         this.elements.aboutDescriptionLink
       ],
@@ -87,39 +86,38 @@ export default class Home extends Page
       }
     )
 
-    this.home.animations.work.top = Array.from(
-      this.elements.workTopTitles,
-      title => 
+    this.elements.workSvg.forEach(
+      svg => 
       {
-        return new FP_Title(
-          title,
-          true
-        ) 
-      }
-    )
+        let svgShow = gsap.fromTo(
+          svg, 
+          {
+            fontSize: '0rem',
+            opacity: 0.0
+          },
+          {
+            fontSize: '4rem',
+            opacity: 1.0,
+            duration: 1.0, 
+            stagger: 0.2, 
+            ease: 'power2.inOut', 
+            paused: true
+          }
+        )
 
-    this.home.animations.work.btm = Array.from(
-      this.elements.workBtmTitles,
-      title => 
-      {
-        return new FP_Title(
-          title,
-          false
-        ) 
+        this.home.animations.workTitles.push(svgShow)
       }
     )
   }
 
   onMouseEnter(idx)
   {
-    this.home.animations.work.top[idx].show()
-    this.home.animations.work.btm[idx].show()
+    this.home.animations.workTitles[idx].play()
   }
 
   onMouseLeave(idx)
   {
-    this.home.animations.work.top[idx].hide()
-    this.home.animations.work.btm[idx].hide()
+    this.home.animations.workTitles[idx].reverse()
   }
 
   show()
@@ -134,22 +132,9 @@ export default class Home extends Page
   {
     super.hide(true)
 
-    return new Promise(resolve => 
-      {
-        this.home.animations.work.top.forEach(
-          el => 
-          {
-            el.hide()
-          }
-        )
-
-        this.home.animations.work.btm.forEach(
-          el => 
-          {
-            el.hide()
-          }
-        )
-        
+    return new Promise(
+      resolve => 
+      { 
         this.onTitleShow.reverse()
         this.onPortraitShow.reverse()
           .eventCallback(

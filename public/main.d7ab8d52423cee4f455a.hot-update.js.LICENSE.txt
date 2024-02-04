@@ -1,0 +1,11 @@
+/*! ./Background */
+
+/*! ./DelayedElement */
+
+/*! ./StaticElement */
+
+/*! three */
+
+/*!**************************************************************!*\
+  !*** ./app/components/Canvas/Controller/pages/Home/index.js ***!
+  \**************************************************************/

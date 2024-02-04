@@ -1,7 +1,8 @@
-import { Group } from 'three' 
+import { Group, TextureLoader } from 'three' 
 
 import DelayedElement from './DelayedElement'
 import StaticElement from './StaticElement'
+import CircleElement from './CircleElement'
 import Background from './Background'
 
 export default class Home 
@@ -37,7 +38,12 @@ export default class Home
 
     this.delayedElements = document.querySelectorAll('[data-type="delay"]')
     this.staticElements = document.querySelectorAll('[data-type="static"]')
-    this.background = document.querySelector('.home__showcase')
+    this.circleElements = document.querySelectorAll('.home__showcase__gallery__image__figure__image')
+    this.backgroundElement = document.querySelector('[data-type="background"]')
+
+    this.links = document.querySelectorAll('.home__showcase__gallery__image__link')
+
+    this.disp = new TextureLoader().load(this.circleElements[0].dataset.displacement)
   }
 
   createImages()
@@ -78,9 +84,29 @@ export default class Home
       }
     )
 
+    this.cElems = Array.from(
+      this.circleElements,
+      (element, index) => 
+      {
+        return new CircleElement(
+          {
+            element,
+            index,
+            link: this.links[index],
+            displacement: this.disp,
+            template: this.template,
+            geometry: this.geo, 
+            scene: this.sGroup, 
+            screen: this.screen, 
+            viewport: this.viewport
+          }
+        )
+      }
+    )
+
     this.background = new Background(
       {
-        element: this.background, 
+        element: this.backgroundElement, 
         geometry: this.geo, 
         scene: this.sGroup, 
         screen: this.screen, 
@@ -120,6 +146,18 @@ export default class Home
       }
     )
 
+    this.cElems.forEach(
+      el => 
+      {
+        el.onResize(
+          {
+            screen: this.screen, 
+            viewport: this.viewport
+          }
+        )
+      }
+    )
+
     this.background.onResize(
       {
         screen: this.screen, 
@@ -137,6 +175,7 @@ export default class Home
   {
     this.dElems.forEach(el => { el.show() } )
     this.sElems.forEach(el => { el.show() } )
+    this.cElems.forEach(el => { el.show() } )
     this.background.show()
   }
 
@@ -144,6 +183,7 @@ export default class Home
   {
     this.dElems.forEach(el => { el.hide() })
     this.sElems.forEach(el => { el.hide() })
+    this.cElems.forEach(el => { el.hide() })
     this.background.hide()
   }
 
@@ -160,6 +200,7 @@ export default class Home
 
     this.dElems.forEach(el => { el.update() })
     this.sElems.forEach(el => { el.update() })
+    this.cElems.forEach(el => { el.update() })
     this.background.update(scroll)
   }
 
