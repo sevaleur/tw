@@ -221,9 +221,6 @@ export default class Controller
 
     if(this.gallery)
       this.gallery.onTouchDown({ y, x })
-
-    if(this.about)
-      this.about.onTouchUp({ y })
   }
 
   onTouchMove({ y, x })
@@ -233,9 +230,6 @@ export default class Controller
 
     if(this.gallery)
       this.gallery.onTouchMove({ y, x })
-
-    if(this.about)
-      this.about.onTouchMove({ y })
   }
 
   onTouchUp({ y, x })
@@ -245,9 +239,6 @@ export default class Controller
 
     if(this.gallery)
       this.gallery.onTouchUp({ y, x })
-
-    if(this.about)
-      this.about.onTouchUp ({ y })
   }
 
   onWheel(e)
@@ -257,9 +248,6 @@ export default class Controller
 
     if(this.gallery)
       this.gallery.onWheel(e)
-
-    if(this.about)
-      this.about.onWheel(e)
   }
 
   /* 

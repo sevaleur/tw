@@ -8,15 +8,15 @@ nav.navigation
       ul.navigation__list
         each item in navigation.navigationLinks.leftNavItems
           li.navigation__list__left
-            a.navigation__list__left__link.hidden(href=Link(item._ref) data-path=item._ref)
+            a.navigation__list__left__link.hidden(href=Link=(item._ref) data-path=item._ref)
               p.navigation__list__left__link__text=item._ref
         li.navigation__list__logo
-          a.navigation__list__logo__link(href=Link('/'))
+          a.navigation__list__logo__link(href=Link=('/'))
             figure.navigation__list__logo__figure
               img.navigation__list__logo__figure__image(src=Build.image(navigation.navigationLinks.logo.asset._ref).url() alt=navigation.navigationLinks.logo.alt)
         each item in navigation.navigationLinks.rightNavItems
           li.navigation__list__right
-            a.navigation__list__right__link.hidden(href=Link(item._ref) data-path=item._ref)
+            a.navigation__list__right__link.hidden(href=Link=(item._ref) data-path=item._ref)
               p.navigation__list__right__link__text=item._ref
 
     .navigation__profession 

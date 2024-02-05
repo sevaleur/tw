@@ -30,6 +30,8 @@ block content
             each obj, index in home.showcase 
               .home__showcase__gallery__image
                 a.home__showcase__gallery__image__link(href=Link=(`${obj._type}/${obj.slug}`) aria-label=obj.title)
+                  figure.home__showcase__gallery__image__figure
+                    img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url() data-hover=Build.image(obj.image2.asset._ref).url() data-displacement="/img/displacement.jpeg" data-type="circle")
                 .home__showcase__gallery__image__title
                   svg.home__showcase__gallery__image__title__svg(xmlns='http://www.w3.org/2000/svg' xml:lang='en' xmlns:xlink='http://www.w3.org/1999/xlink' viewbox='0 0 500 500')
                     defs
@@ -38,10 +40,8 @@ block content
                     rect(width='100%' height='100%' fill="transparent")
                     text
                       textpath.textpath(xlink:href='#textcircle' aria-label=obj.title textlength='300')=obj.title
-                figure.home__showcase__gallery__image__figure
-                  img.home__showcase__gallery__image__figure__image(alt=obj.image.alt data-src=Build.image(obj.image.asset._ref).url() data-hover=Build.image(obj.image2.asset._ref).url() data-displacement="/img/displacement.jpeg" data-type="circle")
           .home__showcase__gallery__link 
-            a.home__showcase__gallery__link__work(href=Link=('/work'))
+            a.home__showcase__gallery__link__work(href=Link=('work'))
               p.home__showcase__gallery__link__work__text see all
               figure.home__showcase__gallery__link__work__icon
                 img.home__showcase__gallery__link__work__icon__media(data-animation="scale" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")
@@ -59,7 +59,7 @@ block content
           .home__about__info__description 
             p.home__about__info__description__text(data-animation="lsYAlpha")!=home.aboutSection.description.replace(/\n/g, '<br>')
           .home__about__info__link 
-            a.home__about__info__link__url(href=Link=('/about'))
+            a.home__about__info__link__url(href=Link=('about'))
               p.home__about__info__link__url__text(data-animation="lsYAlpha")=home.aboutSection.learnMore 
               figure.home__about__info__link__url__icon
                 img.home__about__info__link__url__icon__media(data-animation="scale" data-src="/icons/arrow-up-circle-line.svg" alt="arrow link image")

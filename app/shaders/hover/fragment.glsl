@@ -3,6 +3,7 @@ uniform float u_state;
 uniform float u_time;
 uniform float u_width; 
 uniform float u_radius; 
+uniform float u_leaveState; 
 
 uniform vec2 u_planeSize; 
 uniform vec2 u_imageSize; 
@@ -41,6 +42,11 @@ void main()
 
   vec4 t1 = texture2D( tMap, (uv - 0.5) * (1.0 - interpolation) + 0.5 ) * alpha;
   vec4 t2 = texture2D( tHover, (uv - 0.5) * interpolation + 0.5 ) * alpha;
+
+  if(u_leaveState == 1.0)
+  {
+    t2 = vec4(1.,0.918,0.859, u_alpha);
+  }
 
   gl_FragColor = mix( t1, t2, interpolation );
   gl_FragColor.a = alpha;

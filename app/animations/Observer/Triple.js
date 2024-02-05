@@ -30,7 +30,7 @@ export default class Triple extends Animation
         opacity: alpha, 
         duration: 1.0, 
         delay: 0.5,
-        ease: 'expo.inOut', 
+        ease: 'power2.inOut', 
         paused: true, 
         onComplete: () => 
         {

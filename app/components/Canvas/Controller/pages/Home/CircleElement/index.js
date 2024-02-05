@@ -18,8 +18,8 @@ export default class CircleElement
     this.screen = screen 
     this.viewport = viewport
 
-    this.time = 0
     this.animations = {
+      time: 0,
       show: false, 
       hide: false
     }
@@ -29,6 +29,7 @@ export default class CircleElement
     this.createMesh()
     this.createAnimations()
     this.createBounds()
+    this.addEventListeners()
   }
 
   createMaterial()
@@ -44,11 +45,11 @@ export default class CircleElement
           u_alpha: { value: 0.0 }, 
           u_state: { value: 0.0},
           u_time: { value: 0.0 },
+          u_leaveState: { value: 0.0 },
           u_width: { value: 0.1 }, 
           u_radius: { value: 0.3 },
           u_imageSize: { value: [ 0.0, 0.0 ] }, 
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_state: { value: 0.0 }, 
           u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
@@ -97,19 +98,20 @@ export default class CircleElement
   createAnimations()
   {
     this.onAlphaChange = gsap.fromTo(
-      this.material.uniforms.u_alpha,
+      this.plane.material.uniforms.u_alpha,
       {
         value: 0.0
       },
       {
         value: 1.0,
+        duration: 1.0,
         delay: 0.5,
         paused: true
       }
     )
 
     this.onStateChange = gsap.fromTo(
-      this.material.uniforms.u_state, 
+      this.plane.material.uniforms.u_state, 
       {
         value: 0.0, 
       }, 
@@ -118,24 +120,6 @@ export default class CircleElement
         duration: 1.0, 
         ease: 'power2.inOut', 
         paused: true
-      }
-    )
-
-    this.onShowScale = gsap.fromTo(
-      this.element, 
-      {
-        scale: 0
-      },
-      {
-        scale: 1.0, 
-        duration: 1.0, 
-        delay: 0.2 * this.index, 
-        ease: 'power2.inOut',
-        paused: true,
-        onComplete: () => 
-        {
-          this.animations.show = true 
-        }
       }
     )
   }
@@ -156,20 +140,16 @@ export default class CircleElement
 
   show()
   {
-    this.addEventListeners()
-
-    this.onShowScale.play()
     this.onAlphaChange.play()
   }
 
   hide()
   {
-    this.animations.hide = true 
-    
-    this.removeEventListeners()
-    
-    this.onShowScale.reverse()
-    this.onAlphaChange.reverse()
+    this.material.uniforms.u_leaveState.value = 1.0
+    this.material.uniforms.u_width.value = .1
+    this.material.uniforms.u_radius.value = 0.12
+
+    this.onStateChange.play()
   }
 
    /*
@@ -221,15 +201,9 @@ export default class CircleElement
   {
     if(!this.bounds) return
 
-    this.time += 0.005
+    this.animations.time += 0.005
 
-    this.plane.material.uniforms.u_time.value = this.time
-
-    if(!this.animations.show)
-      this.createBounds()
-
-    if(this.animations.hide)
-      this.createBounds()
+    this.plane.material.uniforms.u_time.value = this.animations.time
 
     this.updateScale()
     this.updateX()

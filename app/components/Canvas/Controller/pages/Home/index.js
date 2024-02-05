@@ -22,7 +22,8 @@ export default class Home
 
     this.onResize()
 
-    this.scene.add(this.dGroup, this.sGroup)
+    this.scene.add(this.dGroup)
+    this.scene.add(this.sGroup)
 
     this.show()
   }
@@ -38,7 +39,7 @@ export default class Home
 
     this.delayedElements = document.querySelectorAll('[data-type="delay"]')
     this.staticElements = document.querySelectorAll('[data-type="static"]')
-    this.circleElements = document.querySelectorAll('.home__showcase__gallery__image__figure__image')
+    this.circleElements = document.querySelectorAll('[data-type="circle"]')
     this.backgroundElement = document.querySelector('[data-type="background"]')
 
     this.links = document.querySelectorAll('.home__showcase__gallery__image__link')

@@ -44,14 +44,14 @@ float pattern( vec2 p )
 
 void main()
 {
-  vec4 jungleGreen = vec4(0.082, 0.145, 0.176, 1.0);
-  vec4 aerospaceOrange = vec4(0.988, 0.322, 0.0, 1.0); 
-  vec4 antiqueWhite = vec4(1.,0.918,0.859, 1.0);
+  vec4 jungleGreen = vec4(0.082, 0.145, 0.176, u_alpha);
+  vec4 aerospaceOrange = vec4(0.988, 0.322, 0.0, u_alpha); 
+  vec4 antiqueWhite = vec4(1.,0.918,0.859, u_alpha);
+
 
   float shade = pattern(v_uv); 
 
   vec4 final = mix(antiqueWhite, aerospaceOrange, shade * (u_scroll * 0.5));
 
   gl_FragColor = final;
-  gl_FragColor.a = u_alpha;
 }

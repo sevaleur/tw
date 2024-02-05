@@ -6,8 +6,8 @@ block variables
 block content 
   .work 
     .work__borders
-    .work__wrapper 
-      .work__gallery 
+    .work__gallery
+      .work__wrapper 
         each element, idx in work.showcase 
           .work__gallery__image 
             a.work__gallery__image__link(href=Link=(`${element._type}/${element.slug}`) aria-label=element.title)

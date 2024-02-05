@@ -17,7 +17,6 @@ export default class App
   constructor()
   {
     this.createResponsive()
-
     this.createContent()
     this.createCanvas()
     this.createPreloader()

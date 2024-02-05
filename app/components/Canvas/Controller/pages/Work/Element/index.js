@@ -21,7 +21,6 @@ export default class Element
     this.time = 0
     this.animations = {
       show: false, 
-      hide: false
     }
 
     this.createMaterial()
@@ -45,11 +44,11 @@ export default class Element
           u_alpha: { value: 0.0 }, 
           u_state: { value: 0.0},
           u_time: { value: 0.0 },
+          u_leaveState: { value: 0.0 },
           u_width: { value: 0.1 }, 
           u_radius: { value: 0.3 },
           u_imageSize: { value: [ 0.0, 0.0 ] }, 
           u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_state: { value: 0.0 }, 
           u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
@@ -125,7 +124,7 @@ export default class Element
     this.onShow = gsap.fromTo(
       this.element, 
       {
-        scale: 0
+        scale: 0.0
       },
       {
         scale: 1.0, 
@@ -163,9 +162,11 @@ export default class Element
 
   hide()
   {
-    this.animations.hide = true 
+    this.material.uniforms.u_leaveState.value = 1.0
+    this.material.uniforms.u_width.value = .1
+    this.material.uniforms.u_radius.value = 0.12
 
-    this.onShow.delay(0.2 * this.index).reverse()
+    this.onStateChange.play()
   }
 
    /*
@@ -201,9 +202,9 @@ export default class Element
     this.plane.material.uniforms.u_planeSize.value = [this.plane.scale.x, this.plane.scale.y]
   }
 
-  updateX()
+  updateX(current=0)
   {
-    this.x = (this.bounds.left / this.screen.width) * this.viewport.width
+    this.x = ((this.bounds.left + current) / this.screen.width) * this.viewport.width
     this.plane.position.x = (-this.viewport.width / 2) + (this.plane.scale.x / 2) + this.x
   }
 
@@ -213,7 +214,7 @@ export default class Element
     this.plane.position.y = (this.viewport.height / 2) - (this.plane.scale.y / 2) - this.y
   }
 
-  update()
+  update(current, last)
   {
     if(!this.bounds) return
 
@@ -221,11 +222,13 @@ export default class Element
 
     this.plane.material.uniforms.u_time.value = this.time
 
-    if(!this.animations.show || this.animations.hide)
+    if(!this.animations.show)
+    {
       this.createBounds()
+    }
 
     this.updateScale()
-    this.updateX()
+    this.updateX(current)
     this.updateY()
   }
 

@@ -27,7 +27,6 @@ export default class Home extends Page
         aboutDescriptionLink: '.home__about__info__link__about__text',
         footerTitle: '.footer__title__text',
         footerSplit: '.footer__title__split',
-        path: '.circlepath',
       }, 
       background: ANTIQUE_WHITE,
       color: DARK_JUNGLE_GREEN
@@ -65,7 +64,7 @@ export default class Home extends Page
       }
     )
 
-    this.onTitleShow = gsap.fromTo(
+    this.onAlphaShow = gsap.fromTo(
       [
         this.elements.headerTopTitle,
         this.elements.headerBtmTitle,
@@ -99,7 +98,6 @@ export default class Home extends Page
             fontSize: '4rem',
             opacity: 1.0,
             duration: 1.0, 
-            stagger: 0.2, 
             ease: 'power2.inOut', 
             paused: true
           }
@@ -125,7 +123,7 @@ export default class Home extends Page
     super.show()
 
     this.onPortraitShow.play()
-    this.onTitleShow.play()
+    this.onAlphaShow.play()
   }
 
   hide()
@@ -135,7 +133,7 @@ export default class Home extends Page
     return new Promise(
       resolve => 
       { 
-        this.onTitleShow.reverse()
+        this.onAlphaShow.reverse()
         this.onPortraitShow.reverse()
           .eventCallback(
             'onReverseComplete', () => 
