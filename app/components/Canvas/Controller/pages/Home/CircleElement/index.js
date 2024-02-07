@@ -2,7 +2,7 @@ import { ShaderMaterial, Mesh } from 'three'
 import gsap from 'gsap'
 
 import vertex from 'shaders/vertex.glsl'
-import fragment from 'shaders/hover/fragment.glsl'
+import fragment from 'shaders/hoverCircle/fragment.glsl'
 
 export default class CircleElement
 {
@@ -19,9 +19,8 @@ export default class CircleElement
     this.viewport = viewport
 
     this.animations = {
-      time: 0,
       show: false, 
-      hide: false
+      time: 0,
     }
 
     this.createMaterial()
@@ -41,16 +40,16 @@ export default class CircleElement
         uniforms: {
           tMap: { value: null}, 
           tHover: { value: null },
-          displacement: { value: this.disp },
-          u_alpha: { value: 0.0 }, 
-          u_state: { value: 0.0},
-          u_time: { value: 0.0 },
-          u_leaveState: { value: 0.0 },
-          u_width: { value: 0.1 }, 
-          u_radius: { value: 0.3 },
-          u_imageSize: { value: [ 0.0, 0.0 ] }, 
-          u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
+          tDisplacement: { value: this.disp },
+          uAlpha: { value: 0.0 }, 
+          uState: { value: 0.0},
+          uTime: { value: 0.0 },
+          uLeaveState: { value: 0.0 },
+          uWidth: { value: 0.1 }, 
+          uRadius: { value: 0.3 },
+          uImageSize: { value: [ 0.0, 0.0 ] }, 
+          uPlaneSize: { value: [ 0.0, 0.0 ] }, 
+          uViewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
       }
@@ -68,7 +67,7 @@ export default class CircleElement
     this.material.uniforms.tMap.value = this.texture 
     this.material.uniforms.tHover.value = this.texture2
     
-    this.material.uniforms.u_imageSize.value = [
+    this.material.uniforms.uImageSize.value = [
       this.texture.source.data.naturalWidth,
       this.texture.source.data.naturalHeight
     ]
@@ -92,13 +91,13 @@ export default class CircleElement
     this.updateX()
     this.updateY()
 
-    this.plane.material.uniforms.u_planeSize.value = [this.plane.scale.x, this.plane.scale.y]
+    this.plane.material.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y]
   }
 
   createAnimations()
   {
     this.onAlphaChange = gsap.fromTo(
-      this.plane.material.uniforms.u_alpha,
+      this.plane.material.uniforms.uAlpha,
       {
         value: 0.0
       },
@@ -111,7 +110,7 @@ export default class CircleElement
     )
 
     this.onStateChange = gsap.fromTo(
-      this.plane.material.uniforms.u_state, 
+      this.plane.material.uniforms.uState, 
       {
         value: 0.0, 
       }, 
@@ -145,9 +144,9 @@ export default class CircleElement
 
   hide()
   {
-    this.material.uniforms.u_leaveState.value = 1.0
-    this.material.uniforms.u_width.value = .1
-    this.material.uniforms.u_radius.value = 0.12
+    this.material.uniforms.uLeaveState.value = 1.0
+    this.material.uniforms.uWidth.value = .1
+    this.material.uniforms.uRadius.value = 0.12
 
     this.onStateChange.play()
   }
@@ -166,7 +165,7 @@ export default class CircleElement
       if(viewport) {
         this.viewport = viewport
 
-        this.plane.material.uniforms.u_viewportSize.value = [this.viewport.width, this.viewport.height]
+        this.plane.material.uniforms.uViewportSize.value = [this.viewport.width, this.viewport.height]
       }
     }
 
@@ -182,7 +181,7 @@ export default class CircleElement
     this.plane.scale.x = this.viewport.width * this.bounds.width / this.screen.width
     this.plane.scale.y = this.viewport.height * this.bounds.height / this.screen.height
 
-    this.plane.material.uniforms.u_planeSize.value = [this.plane.scale.x, this.plane.scale.y]
+    this.plane.material.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y]
   }
 
   updateX()
@@ -203,7 +202,7 @@ export default class CircleElement
 
     this.animations.time += 0.005
 
-    this.plane.material.uniforms.u_time.value = this.animations.time
+    this.plane.material.uniforms.uTime.value = Math.sin(10 + this.animations.time)
 
     this.updateScale()
     this.updateX()

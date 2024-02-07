@@ -27,7 +27,6 @@ export default class Controller
     )
   }
 
-
   createHome()
   {
     if(this.home) this.destroyHome()

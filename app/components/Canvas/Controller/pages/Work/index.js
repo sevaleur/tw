@@ -37,7 +37,7 @@ export default class Work
     this.work_element = document.querySelector('.work__gallery')
     this.work_wrapper = document.querySelector('.work__wrapper')
 
-    this.elements = document.querySelectorAll('.work__gallery__image__figure__image')
+    this.elements = document.querySelectorAll('[data-type="circle"]')
     this.links = document.querySelectorAll('.work__gallery__image__link')
 
     this.disp = new TextureLoader().load(this.elements[0].dataset.displacement)

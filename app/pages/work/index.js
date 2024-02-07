@@ -14,7 +14,6 @@ export default class Work extends Page
     super({ 
       element: '.work', 
       elements: {
-        galleryBorders: '.work__borders',
         galleryCovers: '.work__gallery__image__cover',
         links: '.work__gallery__image__link',
         titles: '.work__titles__title__text',
@@ -28,7 +27,6 @@ export default class Work extends Page
         indexTotalText: '.work__index__total__text',
         visualiser: '.work__visualiser',
         visualiserBox: '.work__visualiser__box',
-        visualiserCover: '.work__visualiser__box__cover',
         visualiserBoxInner: '.work__visualiser__box__inner'
       }, 
       background: ANTIQUE_WHITE,
@@ -120,37 +118,6 @@ export default class Work extends Page
         paused: true
       }
     )
-
-    this.onCoverHide = gsap.fromTo(
-      [
-        this.elements.visualiserCover, 
-        this.elements.galleryCovers
-      ],
-      {
-        scaleY: 1.0, 
-      }, 
-      {
-        scaleY: 0, 
-        duration: 1.0, 
-        delay: 0.5,
-        ease: 'expo.inOut', 
-        stagger: 0.02,
-        paused: true
-      }
-    )
-
-    this.onGalleryShow = gsap.fromTo(
-      this.elements.galleryBorders, 
-      {
-        scaleX: 0.0,
-      }, 
-      {
-        scaleX: 1.0, 
-        duration: 1.0, 
-        ease: 'power2.inOut', 
-        paused: true
-      }
-    )
   }
 
   onMouseEnter(idx)
@@ -176,8 +143,6 @@ export default class Work extends Page
     this.onIndexSlashShow.play()
     this.onIndexNumberShow.play()
     this.onIndexTotalShow.play()
-    this.onCoverHide.play()
-    this.onGalleryShow.play()
   }
 
   hide()
@@ -190,8 +155,6 @@ export default class Work extends Page
         this.onIndexSlashShow.reverse()
         this.onIndexNumberShow.reverse()
         this.onIndexTotalShow.reverse()
-        this.onCoverHide.reverse()
-        this.onGalleryShow.reverse()
           .eventCallback(
             'onReverseComplete', 
             () => 

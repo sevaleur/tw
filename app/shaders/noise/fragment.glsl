@@ -1,8 +1,8 @@
-uniform float u_scroll; 
-uniform float u_time; 
-uniform float u_alpha;
+uniform float uScroll; 
+uniform float uTime; 
+uniform float uAlpha;
 
-varying vec2 v_uv; 
+varying vec2 vUv; 
 
 float rand(vec2 n) 
 { 
@@ -27,12 +27,12 @@ float fbm( vec2 p )
 {
   float f = 0.0;
 
-  f += 0.500000*noise( p + (u_scroll + (u_time * 0.25)) ); p = mtx*p*2.02;
+  f += 0.500000*noise( p + (uScroll + (uTime * 0.25)) ); p = mtx*p*2.02;
   f += 0.031250*noise( p ); p = mtx*p*2.01;
   f += 0.250000*noise( p ); p = mtx*p*2.03;
   f += 0.125000*noise( p ); p = mtx*p*2.01;
   f += 0.062500*noise( p ); p = mtx*p*2.04;
-  f += 0.015625*noise( p + sin(u_scroll) );
+  f += 0.015625*noise( p + sin(uScroll) );
 
   return f/0.96875;
 }
@@ -44,14 +44,14 @@ float pattern( vec2 p )
 
 void main()
 {
-  vec4 jungleGreen = vec4(0.082, 0.145, 0.176, u_alpha);
-  vec4 aerospaceOrange = vec4(0.988, 0.322, 0.0, u_alpha); 
-  vec4 antiqueWhite = vec4(1.,0.918,0.859, u_alpha);
+  vec4 jungleGreen = vec4(0.082, 0.145, 0.176, uAlpha);
+  vec4 aerospaceOrange = vec4(0.988, 0.322, 0.0, uAlpha); 
+  vec4 antiqueWhite = vec4(1.,0.918,0.859, uAlpha);
 
 
-  float shade = pattern(v_uv); 
+  float shade = pattern(vUv); 
 
-  vec4 final = mix(antiqueWhite, aerospaceOrange, shade * (u_scroll * 0.5));
+  vec4 final = mix(antiqueWhite, aerospaceOrange, shade * (uScroll * 0.5));
 
   gl_FragColor = final;
 }

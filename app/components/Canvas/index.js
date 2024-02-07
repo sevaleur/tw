@@ -119,9 +119,6 @@ export default class Canvas
 
   onResize({ screen })
   {
-    this.camera.onResize(screen)
-    this.renderer.onResize(screen)
-
     if(this.controller)
     {
       this.controller.onResize({
@@ -129,6 +126,9 @@ export default class Canvas
         viewport: this.viewport
       })
     }
+
+    this.camera.onResize(screen)
+    this.renderer.onResize(screen)
   }
 
   onTouchDown(e)

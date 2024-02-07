@@ -31,10 +31,10 @@ export default class DelayedElement
         fragmentShader: fragment, 
         uniforms: {
           tMap: { value: null}, 
-          u_alpha: { value: 0.0 }, 
-          u_imageSize: { value: [ 0.0, 0.0 ] }, 
-          u_planeSize: { value: [ 0.0, 0.0 ] }, 
-          u_viewportSize: { value: [ this.viewport.width, this.viewport.height ] }
+          uAlpha: { value: 0.0 }, 
+          uImageSize: { value: [ 0.0, 0.0 ] }, 
+          uPlaneSize: { value: [ 0.0, 0.0 ] }, 
+          uViewportSize: { value: [ this.viewport.width, this.viewport.height ] }
         },
         transparent: true 
       }
@@ -49,7 +49,7 @@ export default class DelayedElement
 
     this.material.uniforms.tMap.value = this.texture 
     
-    this.material.uniforms.u_imageSize.value = [
+    this.material.uniforms.uImageSize.value = [
       this.texture.source.data.naturalWidth,
       this.texture.source.data.naturalHeight
     ]
@@ -76,13 +76,13 @@ export default class DelayedElement
     this.updateX()
     this.updateY()
 
-    this.plane.material.uniforms.u_planeSize.value = [this.plane.scale.x, this.plane.scale.y]
+    this.plane.material.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y]
   }
 
   createAnimations()
   {
     this.onAlphaChange = gsap.fromTo(
-      this.material.uniforms.u_alpha,
+      this.material.uniforms.uAlpha,
       {
         value: 0.0
       },
@@ -123,7 +123,7 @@ export default class DelayedElement
       if(viewport) {
         this.viewport = viewport
 
-        this.plane.material.uniforms.u_viewportSize.value = [this.viewport.width, this.viewport.height]
+        this.plane.material.uniforms.uViewportSize.value = [this.viewport.width, this.viewport.height]
       }
     }
 
@@ -139,7 +139,7 @@ export default class DelayedElement
     this.plane.scale.x = this.viewport.width * this.bounds.width / this.screen.width
     this.plane.scale.y = this.viewport.height * this.bounds.height / this.screen.height
 
-    this.plane.material.uniforms.u_planeSize.value = [this.plane.scale.x, this.plane.scale.y]
+    this.plane.material.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y]
   }
 
   updateX()
